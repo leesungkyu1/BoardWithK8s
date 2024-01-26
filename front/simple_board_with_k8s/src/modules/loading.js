@@ -1,4 +1,4 @@
-import createRequestSaga, {createRequestActionTypes} from "../lib/createRequestSage";
+import createRequestSaga, {createRequestActionTypes} from "../lib/saga/createRequestSaga";
 import { createAction, handleActions } from "redux-actions";
 
 const START_LOADING = `loading/START_LOADING`;
