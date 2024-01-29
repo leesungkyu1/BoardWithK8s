@@ -1,5 +1,6 @@
 const asyncRequestBase = async(method, url, body) => {
-    const decodeUrl = decodeURI(url);
+    const baseUrl = 'localhost:8080/';
+    const decodeUrl = decodeURI(baseUrl + url);
 
     let response = await fetch(decodeUrl, {
         method: method,
