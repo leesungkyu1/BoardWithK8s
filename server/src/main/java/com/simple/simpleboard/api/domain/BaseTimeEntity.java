@@ -14,23 +14,26 @@ import java.time.format.DateTimeFormatter;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {
 
-    @Column(updatable = false)
+    @Column(updatable = false, name = "create_date")
     @CreatedDate
-    private String createdAt;
+    private String createDate;
 
     @LastModifiedDate
-    private String lastModifiedAt;
-
-    private String curDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+    @Column(name = "update_date")
+    private String updateDate;
 
     @PrePersist
     public void onPrePersist(){
-        this.createdAt = curDate;
-        this.lastModifiedAt = this.createdAt;
+        this.createDate = getCurDate();
+        this.updateDate = this.createDate;
     }
 
     @PreUpdate
     public void onPreUpdate(){
-        this.lastModifiedAt = curDate;
+        this.updateDate = getCurDate();
+    }
+
+    public String getCurDate(){
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
 }

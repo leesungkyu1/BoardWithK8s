@@ -10,33 +10,28 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-public class ApiResponse<K, V> {
+public class ApiResponse {
     private Object data = null;
     private String message = "";
     private boolean success = true;
-    private Map<String, Object> pageInfo = new HashMap<>();
+    private Pageable pageInfo;
 
+    public ApiResponse(String message){
+        this.message = message;
+        this.success = false;
+    }
 
+    public ApiResponse(Object data) {
+        this.data = data;
+    }
 
-//    public ApiResponse(String message){
-//        this.message = message;
-//        this.success = false;
-//    }
-//
-//    public ApiResponse(Map<K, V> data) {
-//        this.data = data;
-//    }
-//
-//    public ApiResponse(Page page){
-//        // Page
-//        this.data = getListData(page.getPageable());
-//
-//    }
-//
-//    public Object getListData(Pageable pageable){
-////        this.date = pageable;
-//        this.data = page
-//    }
+    public ApiResponse(Page page){
+        // Page
+        this.data = page.getContent();
+        this.pageInfo = page.getPageable();
+    }
 
-
+    public ApiResponse(){
+        this.message = "데이터 변경을 성공하였습니다.";
+    }
 }
