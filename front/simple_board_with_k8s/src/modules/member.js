@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import {takeLatest} from 'redux-saga/effects';
-import createRequestSaga, {createRequestActionTypes} from "../lib/saga/createRequestSage";
+import createRequestSaga, {createRequestActionTypes} from "../lib/saga/createRequestSaga";
 import * as memberAPI from "../lib/api/member";
 
 const [MEMBER_INSERT, MEMBER_INSERT_SUCCESS, MEMBER_INSERT_FAILURE] = createRequestActionTypes("member/INSERT");
