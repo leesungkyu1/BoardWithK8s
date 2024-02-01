@@ -11,9 +11,6 @@ const MainPage = () => {
       <Header/>
       <Body>
         <BoardWrapper>
-            <BoardItem></BoardItem>
-            <BoardItem></BoardItem>
-            <BoardItem></BoardItem>
         </BoardWrapper>
       </Body>
       <Pagenation/>
