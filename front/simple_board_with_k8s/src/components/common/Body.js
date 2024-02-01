@@ -7,11 +7,11 @@ const Body = ({children}) => {
     return <>
         <Container>
             <Row>
-                <Col>여백</Col>
+                <Col></Col>
                 <Col xs={10}>
                     {children}
                 </Col>
-                <Col>여백</Col>
+                <Col></Col>
             </Row>
         </Container>
     </>
