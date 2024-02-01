@@ -2,9 +2,12 @@ package com.simple.simpleboard.api.request;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
-@Builder
+@Setter
+@ToString
 public class PostRequest {
 
     private Long postIdx;
@@ -13,7 +16,7 @@ public class PostRequest {
 
     private String postContent;
 
-    private int postViewCnt = 0;
+    private Integer postViewCnt = 0;
 
     private Long writer;
 

@@ -1,26 +1,30 @@
 package com.simple.simpleboard.api.controller;
 
 import com.simple.simpleboard.api.request.UserRequest;
+import com.simple.simpleboard.api.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.simple.simpleboard.api.response.ApiResponse;
-import com.simple.simpleboard.api.response.UserResponse;
-import org.springframework.http.ResponseEntity;
 
-import java.awt.print.Pageable;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
+    private final UserService userService;
+
     @GetMapping("/{userIdx}")
-    public ResponseEntity<?> getUser(@PathVariable int userIdx, UserRequest userRequest){
+    public ResponseEntity<ApiResponse> getUser(@PathVariable int userIdx, UserRequest userRequest){
         return null;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(UserRequest.LoginRequest LoginRequest){
-        return null;
+    public ResponseEntity<ApiResponse> login(UserRequest.LoginRequest loginRequest, HttpServletResponse response){
+        response.addCookie(new Cookie("jwtToken", userService.login(loginRequest)));
+        return ResponseEntity.ok(new ApiResponse());
     }
-
 }

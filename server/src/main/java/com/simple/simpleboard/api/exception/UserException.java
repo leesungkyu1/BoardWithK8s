@@ -16,4 +16,11 @@ public class UserException extends GlobalException{
             super(MESSAGE);
         }
     }
+
+    public static class CheckLoginInfo extends UserException{
+        private static String MESSAGE = "로그인 정보를 확인하세요.";
+        public CheckLoginInfo() {
+            super(MESSAGE);
+        }
+    }
 }

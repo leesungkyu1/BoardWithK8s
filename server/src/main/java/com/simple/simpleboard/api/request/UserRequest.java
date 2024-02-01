@@ -13,6 +13,7 @@ public class UserRequest {
     }
 
     @Getter
+    @Builder
     public static class UserInfo extends LoginRequest{
         private Long userIdx;
         private String userName;

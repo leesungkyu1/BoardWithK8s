@@ -14,21 +14,14 @@ public class ApiResponse {
     private Object data = null;
     private String message = "";
     private boolean success = true;
-    private Pageable pageInfo;
 
-    public ApiResponse(String message){
+    public ApiResponse(String message, boolean success){
         this.message = message;
-        this.success = false;
+        this.success = success;
     }
 
     public ApiResponse(Object data) {
         this.data = data;
-    }
-
-    public ApiResponse(Page page){
-        // Page
-        this.data = page.getContent();
-        this.pageInfo = page.getPageable();
     }
 
     public ApiResponse(){

@@ -24,31 +24,23 @@ public class PostController {
     }
 
     @GetMapping("/{postIdx}")
-    public ResponseEntity<ApiResponse> getPost (@PathVariable int postIdx, PostRequest postRequest) {
-
-        return null;
+    public ResponseEntity<ApiResponse> getPost (@PathVariable Long postIdx) {
+        return ResponseEntity.ok(postService.getPost(postIdx));
     }
 
     @PostMapping("")
-    public ResponseEntity<ApiResponse> writePost (PostRequest postRequest) {
+    public ResponseEntity<ApiResponse> writePost (@RequestBody PostRequest postRequest) {
         return ResponseEntity.ok(postService.addPost(postRequest));
     }
 
     @PutMapping("/{postIdx}")
-    public ResponseEntity<ApiResponse> updatePost (@PathVariable int postIdx, PostRequest postRequest) {
-
-        return null;
+    public ResponseEntity<ApiResponse> updatePost (@PathVariable Long postIdx, @RequestBody PostRequest postRequest) {
+        postRequest.setPostIdx(postIdx);
+        return ResponseEntity.ok(postService.updatePost(postRequest));
     }
 
     @DeleteMapping("/{postIdx}")
-    public ResponseEntity<ApiResponse> deletePost (@PathVariable int postIdx, PostRequest postRequest) {
-
-        return null;
-    }
-
-    @GetMapping("/{postIdx}/viewcnt")
-    public ResponseEntity<ApiResponse> addPostViewCnt (@PathVariable int postIdx, PostRequest postRequest) {
-
-        return null;
+    public ResponseEntity<ApiResponse> deletePost (@PathVariable Long postIdx) {
+        return ResponseEntity.ok(postService.deletePost(postIdx));
     }
 }

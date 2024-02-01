@@ -9,11 +9,10 @@ import com.simple.simpleboard.api.repository.UserRepository;
 import com.simple.simpleboard.api.request.PostRequest;
 import com.simple.simpleboard.api.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -26,22 +25,21 @@ public class PostService {
 
     public ApiResponse getPosts(Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createDate"));
-        Page<Post> getPosts = postRepository.findAll(pageable);
-
-        ApiResponse response = new ApiResponse(getPosts);
-        return response;
+        Page<Post> posts = postRepository.findAll(pageable);
+        return new ApiResponse(new PageImpl(posts.getContent(), posts.getPageable(),  posts.getTotalPages()));
     }
 
-    public ApiResponse getPost(PostRequest postRequest){
-        PostException.NotFoundPost test = new PostException.NotFoundPost();
-        Post getPost = postRepository.findById(postRequest.getPostIdx()).orElseThrow(PostException.NotFoundPost::new);
-
-        return new ApiResponse(getPost);
+    public ApiResponse getPost(Long postIdx){
+        return new ApiResponse(postRepository.findById(postIdx).orElseThrow(PostException.NotFoundPost::new));
     }
 
     public ApiResponse updatePost(PostRequest postRequest){
-        Post post = setBuilderPost(postRequest);
-        postRepository.save(post);
+        postRepository.save(setBuilderPost(postRequest));
+        return new ApiResponse();
+    }
+
+    public ApiResponse deletePost(Long postIdx){
+        postRepository.deleteById(postIdx);
         return new ApiResponse();
     }
 
@@ -60,7 +58,7 @@ public class PostService {
     public Post setBuilderPost(PostRequest postRequest){
         User user = getUserInfo(postRequest.getWriter());
         return Post.builder()
-                .id(Math.max(postRequest.getPostIdx(), 0))
+                .id(postRequest.getPostIdx())
                 .title(!postRequest.getPostTitle().isEmpty() ? postRequest.getPostTitle() : null)
                 .content(!postRequest.getPostContent().isEmpty() ? postRequest.getPostContent() : null)
                 .user(user)

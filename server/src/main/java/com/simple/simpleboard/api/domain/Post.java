@@ -10,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class Post extends BaseTimeEntity{
 
     @Id
@@ -27,4 +28,7 @@ public class Post extends BaseTimeEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_idx_fk")
     private User user;
+
+    @Column(name = "post_view_cnt")
+    private int postViewCnt;
 }

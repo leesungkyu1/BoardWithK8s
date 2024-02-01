@@ -1,6 +1,12 @@
+POST http://localhost:80/api/item
+Content-Type: application/json
+
+{}
+
+###
 
 ### 로그인 api
-POST {{host}}/login
+POST {{host}}/user/login
 Content-Type: application/json
 
 ## 아이디 및 비밀번호
@@ -11,19 +17,30 @@ Content-Type: application/json
 
 ### random 숫자는 각 요소에 맞는 기본키
 ### 게시글 조회 api
-GET {{host}}/{{$random.integer()}}
+GET {{host}}/post/{{$random.integer()}}
 
 ### 게시글 목록 조회 api
-GET {{host}}/post?page=1&size=10
+GET {{host}}/post?page=1200&size=10
 
 ### 게시글 수정 api
-PUT {{host}}{{$random.integer()}}
+PUT {{host}}/post/{{$random.integer()}}
+Content-Type: application/json
+
+{
+  "postTitle" : "testTitle",
+  "postContent" : "testContent",
+  "writer" : 1
+}
 
 ### 게시글 등록 api
-POST {{host}}/{{$random.integer()}}
+POST {{host}}/post
+Content-Type: application/json
+
+{
+  "postTitle" :"testTitle",
+  "postContent" : "testContent",
+  "writer" : 1
+}
 
 ### 게시글 삭제 api
-DELETE {{host}}/{{$random.integer()}}
-
-### 게시글 조회수 추가 api
-GET {{host}}/{{$random.integer()}}/viewcnt
+DELETE {{host}}/post/{{$random.integer()}}
