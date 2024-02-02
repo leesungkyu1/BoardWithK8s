@@ -5,13 +5,14 @@ import BoardItem from "./BoardItem";
 const BoardWrapper = ({boardList}) => {
     return <>
         <ListGroup as="ol" numbered>
-            {boardList && (boardList.map(board => {
+            {boardList && (boardList.map(board => (
                 <BoardItem
-                    key={board.seq}
+                    key={board.id}
                     title={board.title}
-                    content={board.content}
+                    createDate={board.createDate}
+                    postViewCnt={board.postViewCnt}
                 />
-            }))}
+            )))}
         </ListGroup>
     </>
 };
