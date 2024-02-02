@@ -10,6 +10,9 @@ import com.simple.simpleboard.api.request.PostRequest;
 import com.simple.simpleboard.api.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +26,8 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    private final RedisTemplate<String, String> redisTemplate;
+
     public ApiResponse getPosts(Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createDate"));
         Page<Post> posts = postRepository.findAll(pageable);
@@ -30,6 +35,7 @@ public class PostService {
     }
 
     public ApiResponse getPost(Long postIdx){
+//        redisTemplate.opsForList()
         return new ApiResponse(postRepository.findById(postIdx).orElseThrow(PostException.NotFoundPost::new));
     }
 

@@ -9,6 +9,7 @@ import com.simple.simpleboard.api.response.ApiResponse;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
@@ -26,5 +27,10 @@ public class UserController {
     public ResponseEntity<ApiResponse> login(@RequestBody UserRequest.LoginRequest loginRequest, HttpServletResponse response){
         response.addCookie(new Cookie("jwtToken", userService.login(loginRequest)));
         return ResponseEntity.ok(new ApiResponse());
+    }
+
+    @PostMapping("")
+    public ResponseEntity<ApiResponse> saveUser(@RequestBody @Valid UserRequest.UserInfo userRequest){
+        return ResponseEntity.ok(userService.saveUser(userRequest));
     }
 }

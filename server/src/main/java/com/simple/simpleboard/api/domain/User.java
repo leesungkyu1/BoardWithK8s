@@ -33,5 +33,5 @@ public class User extends BaseTimeEntity{
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Post> posts = new ArrayList<>();
+    private List<Post> posts;
 }
