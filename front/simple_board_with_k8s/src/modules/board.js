@@ -20,14 +20,19 @@ export const initForm = createAction(INIT_FORM);
 export const changeValue = createAction(CHANGE_VALUE);
 
 const initSatet = {
-    boardList: {
-        boardList: "",
-        page: "",
-    },
+    boardList: "",
+    page: "",
+    totalPages: "",
+    first:"",
+    last: "",
     board: {
-        seq: "",
+        id: "",
         title: "",
-        content: ""
+        content: "",
+        createDate: "",
+        updateDate: "",
+        postViewCnt: 0,
+        curDate: "",
     }
 };
 
@@ -46,11 +51,14 @@ export function* boardSaga(){
 };
 
 const board = handleActions({
-    [BOARD_LIST_SUCCESS]: (state, {payload, code}) => ({
+    [BOARD_LIST_SUCCESS]: (state, {payload : {content : boardList, number, totalPages, first, last}}, code) => ({
         ...state,
-        boardList: payload.boardList,
-        page: payload.page ? payload.page : 1,
+        boardList,
+        page: number ? number : 0,
         err: code !== 0,
+        totalPages: totalPages,
+        first: first,
+        last: last,
     }),
     [BOARD_LIST_FAILUER]: (state, {payload: error}) => ({
         ...state,

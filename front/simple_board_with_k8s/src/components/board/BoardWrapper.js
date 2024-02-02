@@ -2,16 +2,20 @@ import React from "react";
 import { ListGroup } from "../../../node_modules/react-bootstrap/esm/index";
 import BoardItem from "./BoardItem";
 
-const BoardWrapper = ({boardList}) => {
+const BoardWrapper = ({boardList, boardDetailLinkEvent}) => {
+    
     return <>
         <ListGroup as="ol" numbered>
-            {boardList && (boardList.map(board => {
+            {boardList && (boardList.map(board => (
                 <BoardItem
-                    key={board.seq}
+                    key={board.id}
+                    id={board.id}
                     title={board.title}
-                    content={board.content}
+                    createDate={board.createDate}
+                    postViewCnt={board.postViewCnt}
+                    boardDetailLinkEvent={boardDetailLinkEvent}
                 />
-            }))}
+            )))}
         </ListGroup>
     </>
 };

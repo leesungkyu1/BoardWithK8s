@@ -2,7 +2,8 @@ import React from "react";
 import Header from "../components/common/Header"
 import Body from "../components/common/Body";
 import BoardListContainer from "../containers/board/BoardListContainer";
-import Pagenation from "../components/common/Pagination";
+import PagenationContainer from "../containers/common/PaginationContainer";
+
 
 
 const MainPage = () => {
@@ -12,7 +13,7 @@ const MainPage = () => {
         <BoardListContainer>
         </BoardListContainer>
       </Body>
-      <Pagenation/>
+      <PagenationContainer/>
     </>
 };
 

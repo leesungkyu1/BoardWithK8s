@@ -4,8 +4,8 @@ export const boardList = (page) => {
     return asyncRequestBase("GET", `/post?page=${page}`);
 };
 
-export const boardDetail = (seq) => {
-    return asyncRequestBase("GET", `/post/${seq}`);
+export const boardDetail = (id) => {
+    return asyncRequestBase("GET", `/post/${id}`);
 };
 
 export const boardInsert = ({title, content}) => {

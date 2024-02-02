@@ -2,21 +2,24 @@ import React, { useEffect } from "react";
 import BoardDetail from "../../components/board/BoardDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { boardItemAction } from "../../modules/board";
+import { useParams } from "../../../node_modules/react-router-dom/dist/index";
 
 const BoardDetailContainer = () => {
+    const {id} = useParams();
     const dispatch = useDispatch();
 
-    const {seq, title, content} = useSelector((board) => ({
-        board: board.board
+    const {title, content} = useSelector(({board}) => ({
+        title: board.title,
+        content: board.content
     }));
 
     useEffect(() => {
-        dispatch(boardItemAction(seq));
+        dispatch(boardItemAction(id));
     }, [dispatch]);
 
     return <>
         <BoardDetail
-            key={seq}
+            key={id}
             title={title}
             content={content}
         />

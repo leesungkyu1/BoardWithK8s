@@ -5,22 +5,29 @@ import { boardListAction } from "../../modules/board";
 import { useSearchParams } from "../../../node_modules/react-router-dom/dist/index";
 
 const BoardListContainer = () => {
-    const [searchParams, setSearchParames] = useSearchParams();
-    const page = searchParams.get("page");
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get("page") ? searchParams.get("page") - 1: 0;
 
     const dispatch = useDispatch();
 
-    const {boardList} = useSelector((board) => ({
+    const {boardList} = useSelector(({board}) => ({
         boardList: board.boardList
     }));
 
     useEffect(() => {
         dispatch(boardListAction(page));
-    }, [dispatch]);
+    }, [page, dispatch]);
+
+    const boardDetailLink = (id) => {
+        console.log("a");
+
+        window.location.href = `/boardDetail/${id}`;
+    };
 
     return <>
         <BoardWrapper
             boardList={boardList}
+            boardDetailLinkEvent={boardDetailLink}
         />
     </>
 };
