@@ -22,6 +22,9 @@ export const changeValue = createAction(CHANGE_VALUE);
 const initSatet = {
     boardList: "",
     page: "",
+    totalPages: "",
+    first:"",
+    last: "",
     board: {
         id: "",
         title: "",
@@ -48,14 +51,15 @@ export function* boardSaga(){
 };
 
 const board = handleActions({
-    [BOARD_LIST_SUCCESS]: (state, {payload : {content : boardList, pageNumber}}, code) => (
-        {
+    [BOARD_LIST_SUCCESS]: (state, {payload : {content : boardList, number, totalPages, first, last}}, code) => ({
         ...state,
         boardList,
-        page: pageNumber ? pageNumber : 0,
+        page: number ? number : 0,
         err: code !== 0,
-    }
-    ),
+        totalPages: totalPages,
+        first: first,
+        last: last,
+    }),
     [BOARD_LIST_FAILUER]: (state, {payload: error}) => ({
         ...state,
         err: error

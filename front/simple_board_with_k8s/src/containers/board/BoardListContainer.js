@@ -16,7 +16,7 @@ const BoardListContainer = () => {
 
     useEffect(() => {
         dispatch(boardListAction(page));
-    }, [dispatch]);
+    }, [page, dispatch]);
 
     return <>
         <BoardWrapper
