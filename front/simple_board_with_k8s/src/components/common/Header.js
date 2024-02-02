@@ -7,6 +7,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Header = () => {
+
+    const headerLink = {
+        join: "/memberJoin",
+        login: "/login"
+    };
+
     return <>
         <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
             <Container fluid>
@@ -22,8 +28,14 @@ const Header = () => {
                     <Nav.Link href="#action2">글쓰기</Nav.Link>
                 </Nav>
                 <Form className="d-flex">
-                    <Button variant="outline-success">로그인</Button>
-                    <Button variant="outline-success">회원가입</Button>
+                    <Button 
+                        variant="outline-success"
+                        href={headerLink.login}
+                    >로그인</Button>
+                    <Button 
+                        variant="outline-success"
+                        href={headerLink.join}
+                    >회원가입</Button>
                 </Form>
                 </Navbar.Collapse>
             </Container>
