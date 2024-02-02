@@ -1,33 +1,29 @@
 package com.simple.simpleboard.api.jwttoken;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.simple.simpleboard.api.exception.UserException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Optional;
 
-@RequiredArgsConstructor
+@WebFilter(urlPatterns = {"/post/*"})
+@Component
 public class JwtFilter extends GenericFilterBean {
 
-    private final JwtUtil jwtUtil;
+    @Autowired
+    private JwtUtil jwtUtil;
+
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-
-        String jwtToken = resolveToken(httpServletRequest);
-
-        if(StringUtils.hasText(jwtToken) == jwtUtil.validateToken(jwtToken)){
-//            Authentication authentication = jwtUtil.getAuthentication(jwtToken);
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
+        String token = Optional.ofNullable(resolveToken(httpServletRequest)).orElseThrow(UserException.NotFoundUser::new);
         chain.doFilter(httpServletRequest, response);
     }
 
