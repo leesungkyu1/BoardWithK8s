@@ -19,6 +19,7 @@ const BoardDetailContainer = () => {
 
     return <>
         <BoardDetail
+            id={id}
             key={id}
             title={title}
             content={content}

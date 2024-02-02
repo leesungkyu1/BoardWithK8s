@@ -3,7 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
 
-const BoardDetail = ({seq, title, content}) => {
+const BoardDetail = ({id, title, content}) => {
+
+    const boradDetailLink = {
+        boardUpdate: `http://localhost:3000/boardForm/`,
+    };
+
     return <>
         <div className="d-flex justify-content-around">
             <Card style={{ width: '100%' }} >
@@ -14,7 +19,7 @@ const BoardDetail = ({seq, title, content}) => {
                         {content}
                     </Card.Text>
                     <div style={{display: "flex", flexDirection: "row-reverse"}}>
-                        <Button variant="outline-success">수정</Button>
+                        <Button variant="outline-success" href={boradDetailLink.boardUpdate + id}>수정</Button>
                         <Button variant="outline-success">삭제</Button>
                     </div>
                 </Card.Body>

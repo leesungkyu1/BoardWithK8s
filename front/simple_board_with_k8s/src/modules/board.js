@@ -13,7 +13,7 @@ const INIT_FORM = "board/INIT_FORM";
 
 export const boardListAction = createAction(BOARD_LIST, page => page);
 export const boardInsertAction = createAction(BOARD_INSERT, ({title, content}) => ({title, content}));
-export const boardUpdateAction = createAction(BOARD_UPDATE, ({seq, title, content}) => ({seq, title, content}));
+export const boardUpdateAction = createAction(BOARD_UPDATE, ({id, title, content}) => ({id, title, content}));
 export const boardDeleteAction = createAction(BOARD_DELETE, seq => seq);
 export const boardItemAction = createAction(BOARD_ITEM, seq => seq);
 export const initForm = createAction(INIT_FORM);
