@@ -38,6 +38,9 @@ dependencies {
 	//querydsl 추가
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+	compileOnly 'io.jsonwebtoken:jjwt-api:0.10.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.5', 'io.jsonwebtoken:jjwt-jackson:0.10.5'
 }
 
 tasks.named('test') {

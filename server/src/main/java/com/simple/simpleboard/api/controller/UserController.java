@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse> login(UserRequest.LoginRequest loginRequest, HttpServletResponse response){
+    public ResponseEntity<ApiResponse> login(@RequestBody UserRequest.LoginRequest loginRequest, HttpServletResponse response){
         response.addCookie(new Cookie("jwtToken", userService.login(loginRequest)));
         return ResponseEntity.ok(new ApiResponse());
     }
