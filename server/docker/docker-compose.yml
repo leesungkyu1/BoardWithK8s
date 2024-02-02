@@ -1,6 +1,7 @@
 version: "3"
 services:
   db:
+    container_name: mysql_db
     image: mysql:latest
     restart: always
     ports:
@@ -15,3 +16,43 @@ services:
       - ./db/mysql/data:/var/lib/mysql
       - ./db/mysql/config:/etc/mysql/conf.d
       - ./db/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      simple_board_network:
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    command: redis-server --requirepass 1234 --port 6379
+    volumes:
+      - /var/lib/docker/volumes/redis-volume/_data:/data
+      - ./redis.conf:/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+
+  webapp:
+    image: leesungkyu/boardwithk8s:1.0
+    restart: always
+    ports:
+      - "8070:8070"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/simple_board?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "1234"
+    depends_on:
+      - db
+      - redis
+    links:
+      - db
+      - redis
+    networks:
+      simple_board_network:
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - "8060:8060"
+    depends_on:
+      - webapp
+networks:
+  simple_board_network:

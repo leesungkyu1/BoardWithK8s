@@ -1,9 +1,12 @@
-POST http://localhost:80/api/item
+POST {{host}}/user
 Content-Type: application/json
 
-{}
-
-###
+{
+  "userId": "아이디",
+  "userPw": "1234",
+  "userName": "이름",
+  "userPhone": "01022113344"
+}
 
 ### 로그인 api
 POST {{host}}/user/login

@@ -9,6 +9,7 @@ import com.simple.simpleboard.api.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -28,5 +29,24 @@ public class UserService {
                         .build();
 
         return jwtUtil.createToken(userRequest, "Access");
+    }
+
+    public ApiResponse saveUser(UserRequest.UserInfo userRequest) {
+        ApiResponse apiResponse;
+        User user = User.builder()
+                .userId(userRequest.getUserId())
+                .userPw(userRequest.getUserPw())
+                .userPhone(userRequest.getUserPhone())
+                .userName(userRequest.getUserName())
+                .build();
+
+        User validateUserId = userRepository.findByUserId(user.getUserId()).orElse(null);
+        if(Objects.isNull(validateUserId)){
+            userRepository.save(user);
+            apiResponse = new ApiResponse();
+        }else{
+            apiResponse = new ApiResponse("중복된 아이디입니다.");
+        }
+        return apiResponse;
     }
 }
