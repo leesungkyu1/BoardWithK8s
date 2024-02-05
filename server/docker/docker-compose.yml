@@ -46,13 +46,19 @@ services:
       - redis
     networks:
       simple_board_network:
+      ws_api:
 
   nginx:
     container_name: nginx
     image: nginx:latest
     ports:
-      - "8060:8060"
+      - "80:80"
     depends_on:
       - webapp
+    volumes:
+      - /var/lib/docker/volumes/access_log/_data:/var/log/nginx
+    networks:
+      ws_api:
 networks:
   simple_board_network:
+  ws_api:
