@@ -1,14 +1,14 @@
 import React from "react";
-import Header from "../components/common/Header"
 import Body from "../components/common/Body";
 import BoardListContainer from "../containers/board/BoardListContainer";
 import PagenationContainer from "../containers/common/PaginationContainer";
+import HeaderContainer from "../containers/common/HeaderContainer";
 
 
 
 const MainPage = () => {
     return <>
-      <Header/>
+      <HeaderContainer/>
       <Body>
         <BoardListContainer>
         </BoardListContainer>

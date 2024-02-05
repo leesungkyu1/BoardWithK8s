@@ -4,9 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const Header = () => {
+const Header = ({token}) => {
 
     const headerLink = {
         join: "/memberJoin",
@@ -25,17 +24,25 @@ const Header = () => {
                     navbarScroll
                 >
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="#action2">글쓰기</Nav.Link>
+                    {token && <Nav.Link href="#action2">글쓰기</Nav.Link>}
                 </Nav>
                 <Form className="d-flex">
-                    <Button 
-                        variant="outline-success"
-                        href={headerLink.login}
-                    >로그인</Button>
-                    <Button 
-                        variant="outline-success"
-                        href={headerLink.join}
-                    >회원가입</Button>
+                    {!token && 
+                        <>
+                            <Button 
+                                variant="outline-success"
+                                href={headerLink.login}
+                            >
+                                로그인
+                            </Button>
+                            <Button 
+                                variant="outline-success"
+                                href={headerLink.join}
+                            >
+                                회원가입
+                            </Button>
+                        </>
+                    }
                 </Form>
                 </Navbar.Collapse>
             </Container>

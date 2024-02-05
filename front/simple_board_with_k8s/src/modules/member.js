@@ -8,12 +8,14 @@ const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes("member/L
 const CHANGE_VALUE = "member/CHANGE_VALUE";
 const INIT_FORM = "member/INIT_FORM";
 const INIT_ERR = "member/INIT_ERR";
+const SET_MEMBER = "member/SET_MEMBER"
 
 export const memberInsertAction = createAction(MEMBER_INSERT, ({userId, userPw, userName, userPhone}) => ({userId, userPw, userName, userPhone}));
 export const loginAction = createAction(LOGIN, ({userId, userPw}) => ({userId, userPw}));
 export const initForm = createAction(INIT_FORM);
 export const changeValue = createAction(CHANGE_VALUE);
 export const initErr = createAction(INIT_ERR);
+export const setMember = createAction(SET_MEMBER);
 
 const initState = {
     userId: "",
@@ -66,7 +68,11 @@ const member = handleActions({
         ...state,
         err: null,
         message: ""
-    })
+    }),
+    [SET_MEMBER]: (state, {payload: token}) => ({
+        ...state,
+        token: token
+    }),
 }, initState);
 
 export default member;

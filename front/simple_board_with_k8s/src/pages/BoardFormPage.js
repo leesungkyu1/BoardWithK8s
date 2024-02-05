@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../components/common/Header";
 import Body from "../components/common/Body";
 import BoardFormContainer from "../containers/board/BoardFormContainer";
+import HeaderContainer from "../containers/common/HeaderContainer";
 
 const BoardFormPage = () => {
     return <>
-        <Header/>
+        <HeaderContainer/>
         <Body>
             <BoardFormContainer></BoardFormContainer>
         </Body>
