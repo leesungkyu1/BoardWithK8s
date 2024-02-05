@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import MemberForm from "../../components/member/MemberForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "../../../node_modules/react-router-dom/dist/index";
-import { changeValue } from "../../modules/member";
+import { changeValue, initForm, memberInsertAction } from "../../modules/member";
 
 const MemberContainer = () => {
     const location = useLocation().pathname;
@@ -35,6 +35,16 @@ const MemberContainer = () => {
                 return;
             }
         }
+
+        if(joinFormSw){
+            dispatch(memberInsertAction({userId, userPw, userName, userPhone}));
+
+            alert("회원가입이 완료되었습니다.");
+        }else{
+
+        }
+
+        window.location.href = "/";
     };
 
     const onChangeValue = (e) => {
@@ -42,6 +52,10 @@ const MemberContainer = () => {
 
         dispatch(changeValue({key: name, value}));
     };
+
+    useEffect(() => {
+        dispatch(initForm());
+    }, [dispatch]);
 
     return <>
         <MemberForm
