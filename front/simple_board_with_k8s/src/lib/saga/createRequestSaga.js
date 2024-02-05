@@ -22,12 +22,19 @@ export default function createRequestSaga(type, request) {
             console.log(response);
             console.log("==============response==============");
 
-            yield put({
-                type: SUCCESS,
-                payload: response,
-                code: response.code,
-                msg: response.msg
-            });
+            if(!response.code){
+                yield put({
+                    type: SUCCESS,
+                    payload: response
+                });   
+            }else{
+                yield put({
+                    type: FAILURE,
+                    payload: '',
+                    err: response.code,
+                    message: response.message
+                });    
+            }
         }catch(e){
             yield put({
                 type: FAILURE,

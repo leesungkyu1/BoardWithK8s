@@ -7,11 +7,13 @@ const [MEMBER_INSERT, MEMBER_INSERT_SUCCESS, MEMBER_INSERT_FAILURE] = createRequ
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes("member/LOGIN");
 const CHANGE_VALUE = "member/CHANGE_VALUE";
 const INIT_FORM = "member/INIT_FORM";
+const INIT_ERR = "member/INIT_ERR";
 
 export const memberInsertAction = createAction(MEMBER_INSERT, ({userId, userPw, userName, userPhone}) => ({userId, userPw, userName, userPhone}));
-export const loginAction = createAction(LOGIN, ({id, password}) => ({id, password}));
+export const loginAction = createAction(LOGIN, ({userId, userPw}) => ({userId, userPw}));
 export const initForm = createAction(INIT_FORM);
 export const changeValue = createAction(CHANGE_VALUE);
+export const initErr = createAction(INIT_ERR);
 
 const initState = {
     userId: "",
@@ -19,7 +21,8 @@ const initState = {
     userIdx: "",
     userName: "",
     userPhone: "",
-    err: null
+    err: null,
+    message: "",
 };
 
 const memberInsertSaga = createRequestSaga(MEMBER_INSERT, memberAPI.memberInsert);
@@ -38,6 +41,14 @@ const member = handleActions({
         ...state,
         err: error,
     }),
+    [LOGIN_SUCCESS]: (state) => ({
+
+    }),
+    [LOGIN_FAILURE]: (state, {code, message}) => ({
+        ...state,
+        err: code,
+        message: message
+    }),
     [CHANGE_VALUE]: (state, {payload: {key, value}}) => ({
         ...state,
         [key]: value
@@ -48,6 +59,11 @@ const member = handleActions({
         userPw: initState.userPw,
         userName: initState.userName,
         userPhone: initState.userPhone,
+    }),
+    [INIT_ERR]: (state) => ({
+        ...state,
+        err: null,
+        message: ""
     })
 }, initState);
 

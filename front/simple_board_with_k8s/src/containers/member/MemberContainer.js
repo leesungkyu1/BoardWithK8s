@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import MemberForm from "../../components/member/MemberForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "../../../node_modules/react-router-dom/dist/index";
-import { changeValue, initForm, memberInsertAction } from "../../modules/member";
+import { changeValue, initErr, initForm, loginAction, memberInsertAction } from "../../modules/member";
 
 const MemberContainer = () => {
     const location = useLocation().pathname;
@@ -10,11 +10,12 @@ const MemberContainer = () => {
 
     const dispatch = useDispatch();
 
-    const {userId, userPw, userName, userPhone} = useSelector(({member}) => ({
+    const {userId, userPw, userName, userPhone, message} = useSelector(({member}) => ({
         userId: member.userId, 
         userPw: member.userPw, 
         userName: member.userName, 
-        userPhone: member.userPhone
+        userPhone: member.userPhone,
+        message: member.message
     }));
 
     const writeBtnClick = ({userId, userPw, userName, userPhone, joinFormSw}) => {
@@ -41,7 +42,7 @@ const MemberContainer = () => {
 
             alert("회원가입이 완료되었습니다.");
         }else{
-
+            dispatch(loginAction({userId, userPw}));
         }
 
         //window.location.href = "/";
@@ -56,6 +57,13 @@ const MemberContainer = () => {
     useEffect(() => {
         dispatch(initForm());
     }, [dispatch]);
+
+    useEffect(() => {
+        if(message){
+            alert(message);
+            dispatch(initErr());
+        }
+    }, [dispatch, message]);
 
     return <>
         <MemberForm
