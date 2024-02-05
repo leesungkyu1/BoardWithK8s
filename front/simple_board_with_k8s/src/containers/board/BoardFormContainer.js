@@ -42,18 +42,20 @@ const BoardFormContainer = () => {
         }
 
         const userIdx = getIdFromToken();
+        let boardMessage = "";
         
         if(id){
-            dispatch(boardUpdateAction({id, title, content}));
-        }else{
-            console.log(userIdx);
+            dispatch(boardUpdateAction({userIdx, id, title, content}));
 
+            boardMessage = "수정";
+        }else{
             dispatch(boardInsertAction({userIdx, title, content}));
 
-            alert("게시글이 등록되었습니다.");
-
-            window.location.href = "http://localhost:3000";
+            boardMessage = "등록";
         }
+
+        alert(`게시글이 ${boardMessage}되었습니다.`);
+        window.location.href = "http://localhost:3000";
     };
 
     return <>
