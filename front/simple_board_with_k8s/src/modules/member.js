@@ -8,14 +8,17 @@ const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes("member/L
 const CHANGE_VALUE = "member/CHANGE_VALUE";
 const INIT_FORM = "member/INIT_FORM";
 
-export const memberInsertAction = createAction(MEMBER_INSERT, ({id, password}) => ({id, password}));
+export const memberInsertAction = createAction(MEMBER_INSERT, ({userId, userPw, userName, userPhone}) => ({userId, userPw, userName, userPhone}));
 export const loginAction = createAction(LOGIN, ({id, password}) => ({id, password}));
 export const initForm = createAction(INIT_FORM);
 export const changeValue = createAction(CHANGE_VALUE);
 
 const initState = {
-    id: "",
-    password: "",
+    userId: "",
+    userPw: "",
+    userIdx: "",
+    userName: "",
+    userPhone: "",
     err: null
 };
 
@@ -28,10 +31,8 @@ export function* memberSaga() {
 };
 
 const member = handleActions({
-    [MEMBER_INSERT_SUCCESS]: (state, {payload: {id, password}, code}) => ({
-        ...state,
-        id,
-        password
+    [MEMBER_INSERT_SUCCESS]: (state, {payload: {userId, password}, code}) => ({
+        ...state
     }),
     [MEMBER_INSERT_FAILURE]: (state, {payload: error}) => ({
         ...state,
@@ -43,8 +44,10 @@ const member = handleActions({
     }),
     [INIT_FORM]: (state) => ({
         ...state,
-        id: initState.id,
-        password: initState.password
+        userId: initState.userId,
+        userPw: initState.userPw,
+        userName: initState.userName,
+        userPhone: initState.userPhone,
     })
 }, initState);
 

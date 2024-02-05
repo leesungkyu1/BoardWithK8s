@@ -12,8 +12,8 @@ export const boardInsert = ({title, content}) => {
     return asyncRequestBase("POST", `/post`, {title, content});
 };
 
-export const boardUpdate = ({seq, title, content}) => {
-    return asyncRequestBase("PUT", `/post/${seq}`, {title, content});
+export const boardUpdate = ({id, title, content}) => {
+    return asyncRequestBase("PUT", `/post/${id}`, {title, content});
 };
 
 export const boardDelete = (seq) => {
