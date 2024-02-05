@@ -44,7 +44,7 @@ const MemberContainer = () => {
 
         }
 
-        window.location.href = "/";
+        //window.location.href = "/";
     };
 
     const onChangeValue = (e) => {
