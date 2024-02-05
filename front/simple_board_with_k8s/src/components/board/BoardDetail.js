@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
 
-const BoardDetail = ({id, title, content}) => {
+const BoardDetail = ({id, title, content, token, onClickDeleteButton}) => {
 
     const boradDetailLink = {
         boardUpdate: `http://localhost:3000/boardForm/`,
@@ -19,8 +19,10 @@ const BoardDetail = ({id, title, content}) => {
                         {content}
                     </Card.Text>
                     <div style={{display: "flex", flexDirection: "row-reverse"}}>
-                        <Button variant="outline-success" href={boradDetailLink.boardUpdate + id}>수정</Button>
-                        <Button variant="outline-success">삭제</Button>
+                        {token && <>
+                            <Button variant="outline-success" href={boradDetailLink.boardUpdate + id}>수정</Button>
+                            <Button variant="outline-success" onClick={(e) => onClickDeleteButton()}>삭제</Button>
+                        </>}
                     </div>
                 </Card.Body>
             </Card>

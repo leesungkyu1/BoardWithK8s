@@ -16,6 +16,6 @@ export const boardUpdate = ({writer, postId, postTitle, postContent}) => {
     return asyncRequestBase("PUT", `/post/${postId}`, {writer, postTitle, postContent});
 };
 
-export const boardDelete = (seq) => {
-    return asyncRequestBase("DELETE", `/post/${seq}`);
+export const boardDelete = (id) => {
+    return asyncRequestBase("DELETE", `/post/${id}`);
 };

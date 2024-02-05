@@ -16,7 +16,7 @@ export const boardInsertAction = createAction(BOARD_INSERT, ({userIdx: writer, t
     ({writer, postTitle, postContent}));
 export const boardUpdateAction = createAction(BOARD_UPDATE, ({userIdx: writer, id: postId, title: postTitle, content: postContent}) => 
 ({writer, postId, postTitle, postContent}));
-export const boardDeleteAction = createAction(BOARD_DELETE, seq => seq);
+export const boardDeleteAction = createAction(BOARD_DELETE, id => id);
 export const boardItemAction = createAction(BOARD_ITEM, seq => seq);
 export const initForm = createAction(INIT_FORM);
 export const changeValue = createAction(CHANGE_VALUE);
