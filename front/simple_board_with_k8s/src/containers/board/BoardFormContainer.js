@@ -21,8 +21,6 @@ const BoardFormContainer = () => {
 
     const onChangeValue = (e) => {
         const {name, value} = e.target;
-        console.log(name);
-        console.log(value);
 
         dispatch(changeValue({key: name, value}));
     };
@@ -45,8 +43,7 @@ const BoardFormContainer = () => {
 
     return <>
         <BoardForm
-            id={id}
-            key={id}
+            id={id}            
             title={title}
             content={content}
             onChangeValue={onChangeValue}

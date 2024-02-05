@@ -1,7 +1,7 @@
 import asyncRequestBase from "./asyncRequestBase";
 
-export const memberInsert = ({id, password}) => {
-    return asyncRequestBase('POST', '/member', {id, password});
+export const memberInsert = ({userId, userPw, userName, userPhone}) => {
+    return asyncRequestBase('POST', '/user', {userId, userPw, userName, userPhone});
 };
 
 export const memberLogin = ({id, password}) => {
