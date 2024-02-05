@@ -9,7 +9,8 @@ const Header = ({token}) => {
 
     const headerLink = {
         join: "/memberJoin",
-        login: "/login"
+        login: "/login",
+        writeBoard: "/boardForm"
     };
 
     return <>
@@ -24,7 +25,7 @@ const Header = ({token}) => {
                     navbarScroll
                 >
                     <Nav.Link href="/">Home</Nav.Link>
-                    {token && <Nav.Link href="#action2">글쓰기</Nav.Link>}
+                    {token && <Nav.Link href={headerLink.writeBoard}>글쓰기</Nav.Link>}
                 </Nav>
                 <Form className="d-flex">
                     {!token && 

@@ -8,8 +8,8 @@ export const boardDetail = (id) => {
     return asyncRequestBase("GET", `/post/${id}`);
 };
 
-export const boardInsert = ({title, content}) => {
-    return asyncRequestBase("POST", `/post`, {title, content});
+export const boardInsert = ({writer, postTitle, postContent}) => {
+    return asyncRequestBase("POST", `/post`, {writer, postTitle, postContent});
 };
 
 export const boardUpdate = ({id, title, content}) => {

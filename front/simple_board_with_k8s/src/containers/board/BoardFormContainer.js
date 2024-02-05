@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BoardForm from "../../components/board/BoardForm";
 import { useParams } from "../../../node_modules/react-router-dom/dist/index";
-import { boardItemAction, boardUpdateAction, changeValue } from "../../modules/board";
+import { boardInsertAction, boardItemAction, boardUpdateAction, changeValue, initForm } from "../../modules/board";
+import { getIdFromToken } from "../../lib/util/jwtToken";
 
 const BoardFormContainer = () => {
     const dispatch = useDispatch();
@@ -11,6 +12,12 @@ const BoardFormContainer = () => {
     useEffect(() => {
         if(id){
             dispatch(boardItemAction(id));
+        }
+    }, [id, dispatch]);
+
+    useEffect(() => {
+        if(!id){
+            dispatch(initForm());
         }
     }, [id, dispatch]);
 
@@ -33,11 +40,19 @@ const BoardFormContainer = () => {
             alert("내용을 입력하세요.");
             return;
         }
+
+        const userIdx = getIdFromToken();
         
         if(id){
             dispatch(boardUpdateAction({id, title, content}));
         }else{
-            //dispatch(boardWrite({title, content}));
+            console.log(userIdx);
+
+            dispatch(boardInsertAction({userIdx, title, content}));
+
+            alert("게시글이 등록되었습니다.");
+
+            window.location.href = "http://localhost:3000";
         }
     };
 

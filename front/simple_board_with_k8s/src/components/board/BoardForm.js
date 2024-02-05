@@ -32,7 +32,11 @@ const BoardForm = ({id, title, content, boardFormButtonEvent, onChangeValue}) =>
                         onClick={() => boardFormButtonEvent({id, title, content})}>
                             수정
                     </Button> : 
-                    <Button variant="outline-success">작성</Button>
+                    <Button 
+                        variant="outline-success"
+                        onClick={() => boardFormButtonEvent({id, title, content})}>
+                            작성
+                    </Button>
                 } 
             </div>
         </Form>

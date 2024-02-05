@@ -8,7 +8,7 @@ export function getIdFromToken () {
         const payload = decode(base64Payload);
         const resultObject = JSON.parse(payload.toString());
 
-        return resultObject;
+        return resultObject.userIdx;
     }
 
     return "";

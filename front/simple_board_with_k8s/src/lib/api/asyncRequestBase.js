@@ -8,6 +8,7 @@ const asyncRequestBase = async (method, url, body) => {
             method: method,
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
+                Authorization : localStorage.getItem("token")
             },
             body: JSON.stringify(body),
         });
