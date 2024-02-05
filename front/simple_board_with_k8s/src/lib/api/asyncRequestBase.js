@@ -10,8 +10,8 @@ const asyncRequestBase = async (method, url, body) => {
                 'Content-Type': 'application/json;charset=utf-8',
             },
             body: JSON.stringify(body),
-        })
-        
+        });
+
         if(!response.ok){
             throw new Error(`${response.status}`);
         }

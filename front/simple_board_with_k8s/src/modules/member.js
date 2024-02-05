@@ -23,6 +23,7 @@ const initState = {
     userPhone: "",
     err: null,
     message: "",
+    token: "",
 };
 
 const memberInsertSaga = createRequestSaga(MEMBER_INSERT, memberAPI.memberInsert);
@@ -41,8 +42,9 @@ const member = handleActions({
         ...state,
         err: error,
     }),
-    [LOGIN_SUCCESS]: (state) => ({
-
+    [LOGIN_SUCCESS]: (state, {payload: token}) => ({
+        ...state,
+        token: token
     }),
     [LOGIN_FAILURE]: (state, {code, message}) => ({
         ...state,

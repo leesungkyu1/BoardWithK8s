@@ -10,12 +10,13 @@ const MemberContainer = () => {
 
     const dispatch = useDispatch();
 
-    const {userId, userPw, userName, userPhone, message} = useSelector(({member}) => ({
+    const {userId, userPw, userName, userPhone, message, token} = useSelector(({member}) => ({
         userId: member.userId, 
         userPw: member.userPw, 
         userName: member.userName, 
         userPhone: member.userPhone,
-        message: member.message
+        message: member.message,
+        token: member.token
     }));
 
     const writeBtnClick = ({userId, userPw, userName, userPhone, joinFormSw}) => {
@@ -41,11 +42,11 @@ const MemberContainer = () => {
             dispatch(memberInsertAction({userId, userPw, userName, userPhone}));
 
             alert("회원가입이 완료되었습니다.");
+
+            window.location.href = "/";
         }else{
             dispatch(loginAction({userId, userPw}));
         }
-
-        //window.location.href = "/";
     };
 
     const onChangeValue = (e) => {
@@ -64,6 +65,17 @@ const MemberContainer = () => {
             dispatch(initErr());
         }
     }, [dispatch, message]);
+
+    useEffect(() => {
+        if(token){
+            try{
+                localStorage.setItem('token', JSON.stringify(token));
+                window.location.href = "/";
+            }catch(e){
+                console.log("localStorage is not working");
+            }
+        }
+    }, [token]);
 
     return <>
         <MemberForm
