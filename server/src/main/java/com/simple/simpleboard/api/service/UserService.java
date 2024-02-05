@@ -20,7 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     private final JwtUtil jwtUtil;
-    public String login(UserRequest.LoginRequest loginRequest) {
+    public ApiResponse login(UserRequest.LoginRequest loginRequest) {
         User user = userRepository.findByUserIdAndUserPw(loginRequest.getUserId(), loginRequest.getUserPw()).orElseThrow(UserException.CheckLoginInfo::new);
         UserRequest.UserInfo userRequest = UserRequest.UserInfo.builder()
                         .userIdx(user.getUserIdx())
@@ -28,7 +28,7 @@ public class UserService {
                         .userPhone(user.getUserPhone())
                         .build();
 
-        return jwtUtil.createToken(userRequest, "Access");
+        return new ApiResponse(jwtUtil.createToken(userRequest, "Access"));
     }
 
     public ApiResponse saveUser(UserRequest.UserInfo userRequest) {

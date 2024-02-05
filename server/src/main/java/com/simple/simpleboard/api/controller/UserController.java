@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 @RequiredArgsConstructor
 public class UserController {
 
@@ -25,8 +26,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> login(@RequestBody UserRequest.LoginRequest loginRequest, HttpServletResponse response){
-        response.addCookie(new Cookie("jwtToken", userService.login(loginRequest)));
-        return ResponseEntity.ok(new ApiResponse());
+        return ResponseEntity.ok(userService.login(loginRequest));
     }
 
     @PostMapping("")

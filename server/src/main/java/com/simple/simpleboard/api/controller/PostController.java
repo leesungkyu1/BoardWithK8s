@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/post")
+@CrossOrigin
 @RequiredArgsConstructor
 public class PostController {
 
