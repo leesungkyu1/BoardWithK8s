@@ -9,4 +9,4 @@
   sed -i -e 's/\r//g' <script file path> 실행
 
 3. vim 에디터, 도커, 쿠버네티스 설치
-   - install_pkg.sh를 실행하여 설치 및 데몬 실행
+  - install_pkg.sh를 실행하여 설치 및 데몬 실행
