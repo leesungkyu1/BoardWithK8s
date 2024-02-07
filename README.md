@@ -6,4 +6,7 @@
   - config.sh 실행
   - config.sh에 레포지토리나 dns 설정등이 있으므로 필요시 확인
   * sh가 정상실행이 되지 않을경우
-  sed -i -e 's/\r//g' <script file path> 실행 
+  sed -i -e 's/\r//g' <script file path> 실행
+
+3. vim 에디터, 도커, 쿠버네티스 설치
+   - install_pkg.sh를 실행하여 설치 및 데몬 실행
