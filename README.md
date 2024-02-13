@@ -16,3 +16,9 @@
    - net_calico.yaml 오브젝트 파일과 master_node.sh 파일 작성 후 master_node.sh 실행
    - master_node.sh = 쿠버네티스 클러스터 초기화 / 마스터 노드 설정 / calico 실행
    - calico = Pod간의 네트워크 동신을 위한 네트워크 플러그인
+
+5. 위의 1~3번 과정을 워커노드로 사용할 가상머신에 진행
+
+6. 쿠버네티스 클러스터 조인
+   - work_nodes.sh를 실행하여 쿠버네티스 클러스터 조인
+   - kubectl get nodes로 클러스터가 잘 구성되었는지 확인
