@@ -23,10 +23,19 @@
    - work_nodes.sh를 실행하여 쿠버네티스 클러스터 조인
    - kubectl get nodes로 클러스터가 잘 구성되었는지 확인
 
-7. 헬름을 이용한 MetalLB 세팅
+7. 헬름 설치
    - 헬름(helm) = 쿠버네티스에서 애플리케이션을 배포하기 위해 사용되는 패키징 툴
    - 헬름을 이용해 쿠버네티스에 원하는 애플리케이션을 간단하게 설치할 수 있다
    - 컨테이너 배포 뿐 아니라 애플리케이션을 배포하기 위해 필요한 쿠버네티스 리소스를 모두 패키지 형태로 배포하는 역할
-  
+   - 마스터 노드로 helm-install.sh 이동
+   - helm-install.sh 를 export DESIRED_VERSION=v3.2.1; 헬름 쉘스크립트 ex) ./helm-install.sh 명령어와 같이 실행하여 버전을 정하면서 헬름 설치
+
+8. MetalLB 설치
+   - 마스터 노드에서 작업 진행
    - MetalLB = 온프레미스 환경에서 로드밸런서를 사용할 수 있게 해줌
-   
+   - 헬름 차트 저장소에서 metallb 검색 후 차트 저장소의 주소 확인
+   - (실습 책의 저자의 repo를 사용해서 설치를 진행함)
+   - helm repo add edu https://iac-source.github.io/helm-charts를 입력하여 헬름 차트 저장소 추가
+   - helm repo list 를 사용하여 목록 확인
+   - helm repo update를 사용하여 최신 차트 정보를 동기화
+   - helm install metallb edu/metallb --namespace=matallb-system --create-namespace --set controller.tag=v0.8.3 --set speaker.tag=v0.8.3 --set configmap.ipRange=192.168.1.11-192.168.1.29 를 사용하여 metallb 설치
