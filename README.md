@@ -57,3 +57,4 @@
    - kubectl apply -f mysql-db.yaml을 실행하여 DB를 배포한다
    - kubectl get secret 과 kubectl get pods를 입력하여 정상 배포되었는지 확인한다
    - kubectl expose deploy mysql-db --port 3306 --type LoadBalancer을 입력하여 db를 로드밸런서 타입으로 노출시킨다
+   - kubectl get service를 입력하여 정상적으로 service로 노출되었는지 확인한다
