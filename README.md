@@ -56,3 +56,5 @@
    - kubectl apply -f mysql-secret.yaml 을 실행하여 DB의 password가 담긴 secret을 배포한다 (secret 값들은 base64 인코딩이 되어있어야 한다)
    - kubectl apply -f mysql-db.yaml을 실행하여 DB를 배포한다
    - kubectl get secret 과 kubectl get pods를 입력하여 정상 배포되었는지 확인한다
+   - db 폴더의 mysql-service.yaml을 마스터 노드로 옮긴다
+   - kubectl apply -f mysql-service.yaml을 실행하여 db를 쿠버네티스 클러스터 외부에서 접근할 수 있도록 노출시킨다
