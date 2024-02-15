@@ -52,3 +52,7 @@
    - kubectl apply -f db-pv.yaml 명령어와 kubectl apply -f db-pvc.yaml 명령어를 입력하여 PV, PVC를 생성한다
    - kubectl get pv 와 kubectl get pvc를 입력하여 PV, PVC가 정상 생성되었는지 확인한다
    - PV의 status 는 bound 상태여야 정상작동
+   - db 폴더의 mysql-db.yaml 파일과 mysql-secret.yaml 파일을 마스터 노드로 옮긴다
+   - kubectl apply -f mysql-secret.yaml 을 실행하여 DB의 password가 담긴 secret을 배포한다 (secret 값들은 base64 인코딩이 되어있어야 한다)
+   - kubectl apply -f mysql-db.yaml을 실행하여 DB를 배포한다
+   - kubectl get secret 과 kubectl get pods를 입력하여 정상 배포되었는지 확인한다
