@@ -82,3 +82,5 @@
    - jenkins-install.sh를 실행하여 젠키스를 설치한다
    - kubectl get deployment를 입력하여 정상 배포되었는지 확인한다
    - kubectl get serivce를 입력하여 젠킨스가 정상적으로 외부랑 통신할 수 있는 상태인지 확인한다
+   - kubectl get serivce를 입력하였을때 jenkins의 external-ip와 port를 확인하고 해당 주소를 브라우저에 입력하여 젠킨스에 접속한다
+   - 젠킨스의 ID, PW는 admin/admin으로 설정되어있으므로 로그인하여 정상 구동되는지 확인한다
