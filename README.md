@@ -79,4 +79,6 @@
    - kubectl get pv 와 kubectl get pvc를 입력하여 정상적으로 생성되고 바운드가 되었는지 확인한다
    - jenkins 폴더 내의 jenkins-install.sh 파일을 마스터 노드로 옮긴다
    - sh 내부에 jenkins config 파일 정보와 설치 노드 정보가 있다 (해당 정보는 해당 프로젝트 및 공부한 책의 저자의 github에 연결되어 있으므로 필요시 수정)
-     
+   - jenkins-install.sh를 실행하여 젠키스를 설치한다
+   - kubectl get deployment를 입력하여 정상 배포되었는지 확인한다
+   - kubectl get serivce를 입력하여 젠킨스가 정상적으로 외부랑 통신할 수 있는 상태인지 확인한다
