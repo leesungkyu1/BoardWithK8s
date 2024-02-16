@@ -19,4 +19,4 @@ helm install jenkins edu/jenkins \
 --set master.serviceType=LoadBalancer \
 --set master.servicePort=80 \
 --set master.jenkinsOpts="$jkopt1 $jkopt2" \
---set master.javaOpts="$jvopt1 $jvopt2 $jvopt3"s
+--set master.javaOpts="$jvopt1 $jvopt2 $jvopt3"
