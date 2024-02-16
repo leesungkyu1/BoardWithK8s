@@ -88,3 +88,8 @@
    - 업데이트된 플러그인 목록에서 최하단의 Compatible를 클릭한다
    - 지금 다운로드하고 재시작 후 설치하기 버튼을 눌러서 플러그인을 업데이트 한다
    - 다운로드 화면에서 설치가 끝나고 실행중인 작업이 없으면 Jenkins 재시작. 을 체크한다
+   - 젠킨스 관리 > 노드 관리 화면으로 들어간다
+   - 왼쪽 메뉴에서 Configure Clouds로 들어서 Pod Templates 버튼을 누른다
+   - 펼쳐진 포드 템플릿에서 Pod Template details 버튼을 누른다
+   - 중간 환경변수에서 JENKINS_URL을 kubectl get service 시 나왔던 external-ip로 변경한다
+   - 하단에 Apply 후에 Save를 눌러 변경된 설정을 저장한다
