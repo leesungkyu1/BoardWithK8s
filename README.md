@@ -46,7 +46,7 @@
    - PVC = PV 자원의 사용방법을 정의한 요청서, PV에 접근하려면 PVC가 있어야 한다
    - db 폴더에서 db-pv.yaml 파일과 db-pvc.yaml 파일을 마스터 노드에 옮긴다
    - 쿠버네티스 클러스터에서 PV를 공유하기 위해 nfs 서버를 활성화해야 한다
-   - db-pv.yaml 파일을 열어 pv로 사용할 디렉토리를 mkdir명령으로 만든다 ex)mkdir /nfs_folder
+   - db-pv.yaml 파일을 열어 pv로 사용할 디렉토리를 mkdir명령으로 만든다 ex)mkdir /nfs_folder - 해당 프로젝트는 nfs 폴더명을 기준으로 되어있음
    - echo '/파일경로 192.168.1.0/24(rw,sync,no_root_squash)' >> /etc/exports 명령어를 사용해 NFS서버로 받아들일 IP를 기록한다
    - systemctl enable --now nfs 를 입력하여 NFS 서버를 활성화 시킨다
    - kubectl apply -f db-pv.yaml 명령어와 kubectl apply -f db-pvc.yaml 명령어를 입력하여 PV, PVC를 생성한다
@@ -66,4 +66,9 @@
 
 11. frontend 배포
 12. CI/CD를 위한 jenkins 설치
-    
+   - 젠킨스의 설정과 구성 파일들이 파드가 사라져도 유지되도록 PV, PVC를 위한 설정이 필요하다
+   - jenkins 폴더 내의 nfs-exporter.sh 파일을 마스터 노드로 옮긴다
+   - nfs-exporter.sh 쉘 스크립트를 jenkins 매개변수와 같이 실행하여 PV, PVC를 생성하고 nfs 서버를 재시작한다
+   - ./nfs-exporter.sh jenkins (nfs 폴더 기준으로 작성되어 있어 경로를 바꾸고 싶다면 sh 수정)
+   - 젠킨스 컨트롤러에서 기본적으로 사용하는 유저ID와 그룹ID는 1000번이다 따라서 nfs 폴더에 권한을 부여해야한다
+   - 해당 프로젝트 기준 chown 1000:1000 /nfs/jenkins 를 입력하여 소유자를 변경한다
