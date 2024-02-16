@@ -58,3 +58,7 @@
    - kubectl get secret 과 kubectl get pods를 입력하여 정상 배포되었는지 확인한다
    - kubectl expose deploy mysql-db --port 3306 --type LoadBalancer을 입력하여 db를 로드밸런서 타입으로 노출시킨다
    - kubectl get service를 입력하여 정상적으로 service로 노출되었는지 확인한다
+
+10. backend 배포
+   - backend 폴더의 back.yaml 파일을 마스터 노드로 옮긴다 (DB 연결정보는 yaml에 명시했지만 추후 시크릿으로 처리 필요)
+   - 도커 hub에서 이미지를 가져오기 위해 kubectl create secret docker-registry docker-login --docker-username=<도커ID> --docker-password=<도커PW> 를 사용해서 secret 값을 만든다
