@@ -6,7 +6,7 @@ metadata:
     app: simple-board
 spec:
   selector:
-    matchLables:
+    matchLabels:
       app: simple-board
   replicas: 2
   template:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: simple-board
-        image: leesungkyu/boardwithk8s
+        image: leesungkyu/simpleboardwithk8s
         imagePullPolicy: Always
         volumeMounts:
         - name: log-volume
@@ -25,11 +25,13 @@ spec:
         - containerPort: 8070
         env:
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:mysql://mysql_db:3306/simple_board?useSSL=false&allowPublicKeyRetrieval=true
+            value: jdbc:mysql://10.100.205.49:3306/simple_board?useSSL=false&allowPublicKeyRetrieval=true
           - name: SPRING_DATASOURCE_USERNAME
             value: root
           - name: SPRING_DATASOURCE_PASSWORD
-            value: 1234
+            value: "1234"
+      imagePullSecrets:
+        - name: 생성한 시크릿 이름
       volumes:
         - name: log-volume
           emptyDir:
