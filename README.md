@@ -63,6 +63,7 @@
    - backend 폴더의 back.yaml 파일을 마스터 노드로 옮긴다 (DB 연결정보는 yaml에 명시했지만 추후 시크릿으로 처리 필요)
    - 도커 hub에서 이미지를 가져오기 위해 kubectl create secret docker-registry docker-login --docker-username=<도커ID> --docker-password=<도커PW> 를 사용해서 secret 값을 만든다
    - 명령어 중에 특수문자가 포함되어 있다면 작은 따옴표를 사용하여 이스케이프 처리를 해줘야 한다
+   - kubectl apply -f back.yaml을 실행하여 배포한다
 
 11. frontend 배포
 12. CI/CD를 위한 jenkins 설치
@@ -72,3 +73,10 @@
    - ./nfs-exporter.sh jenkins (nfs 폴더 기준으로 작성되어 있어 경로를 바꾸고 싶다면 sh 수정)
    - 젠킨스 컨트롤러에서 기본적으로 사용하는 유저ID와 그룹ID는 1000번이다 따라서 nfs 폴더에 권한을 부여해야한다
    - 해당 프로젝트 기준 chown 1000:1000 /nfs/jenkins 를 입력하여 소유자를 변경한다
+   - ls -n /nfs 를 입력하여 반영이 되었는지 확인한다
+   - jenkins 폴더에서 jenkins-volume.yaml 파일을 마스터 노드로 옮긴다
+   - kubectl apply -f jenkins-volume.yaml를 실행하여 젠킨스용 PV, PVC를 생성한다
+   - kubectl get pv 와 kubectl get pvc를 입력하여 정상적으로 생성되고 바운드가 되었는지 확인한다
+   - jenkins 폴더 내의 jenkins-install.sh 파일을 마스터 노드로 옮긴다
+   - sh 내부에 jenkins config 파일 정보와 설치 노드 정보가 있다 (해당 정보는 해당 프로젝트 및 공부한 책의 저자의 github에 연결되어 있으므로 필요시 수정)
+     
