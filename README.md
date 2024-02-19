@@ -65,8 +65,12 @@
    - 명령어 중에 특수문자가 포함되어 있다면 작은 따옴표를 사용하여 이스케이프 처리를 해줘야 한다
    - kubectl apply -f back.yaml을 실행하여 배포한다
    - 정상적으로 배포되었는지 kubectl get pods 로 파드 목록 출력 후 kubectl logs 파드name 을 넣어 로그를 확인한다
+   - kubectl expose deploy simple-board --port 8070 --type LoadBalancer을 입력하여 backend를 로드밸런서 타입으로 노출시킨다
 
 11. frontend 배포
+   - kubectl get service를 입력하여 백엔드가 어느 ip로 노출되었는지 파악한다
+   - externa-ip로 frontend api 요청 주소를 교체한다
+
 12. CI/CD를 위한 jenkins 설치
    - 젠킨스의 설정과 구성 파일들이 파드가 사라져도 유지되도록 PV, PVC를 위한 설정이 필요하다
    - jenkins 폴더 내의 nfs-exporter.sh 파일을 마스터 노드로 옮긴다
