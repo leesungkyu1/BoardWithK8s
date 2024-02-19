@@ -135,5 +135,7 @@
    - prometheus-server-preconfig.sh를 실행하여 프로메테우스의 데이터를 저장할 볼륨을 설정하고 권한을 준다
    - kubectl get pv, kubectl get pvc를 실행하여 정삭적으로 작동하였는지 확인한다
    - prometheus-install.sh 파일을 마스터 노드로 옮긴다
+   - kubectl get pods --selector=app=prometheus를 입력하여 프로메테우스가 정상적으로 작동하는지 확인한다
+   - kubectl get service prometheus-server를 입력하여 service가 정상 작동하는지 확인하고 external-ip를 브라우저에 입력하여 정상 작동하는지 확인한다
 17. 그라파나, 프로메테우스 연동
 18. 서버 모니터링 경고 Slack 알림
