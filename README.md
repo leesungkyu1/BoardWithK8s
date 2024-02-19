@@ -66,6 +66,7 @@
    - kubectl apply -f back.yaml을 실행하여 배포한다
    - 정상적으로 배포되었는지 kubectl get pods 로 파드 목록 출력 후 kubectl logs 파드name 을 넣어 로그를 확인한다
    - kubectl expose deploy simple-board --port 8070 --type LoadBalancer을 입력하여 backend를 로드밸런서 타입으로 노출시킨다
+   - (해당 명령어는 yaml에 service로도 기술 가능)
 
 11. frontend 배포 (11번 성규 도커파일 완성되면 작성)
    - kubectl get service를 입력하여 백엔드가 어느 ip로 노출되었는지 파악한다
