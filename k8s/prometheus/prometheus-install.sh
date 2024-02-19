@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-helm install prometheus edu/prometheus \ 
+helm install prometheus edu/prometheus \
 --set pushgateway.enabled=false \
 --set alertmanager.enabled=false \
 --set nodeExporter.tolerations[0].key=node-role.kubernetes.io/master \
@@ -10,4 +9,4 @@ helm install prometheus edu/prometheus \
 --set server.securityContext.runAsGroup=1000 \
 --set server.securityContext.runAsUser=1000 \
 --set server.service.type="LoadBalancer" \
---set server.extraFlags[0]="storage.tsdb.no-lockfile"
+--set server.extraFlags[0]="storage.tsdb.no-lockfile" 
