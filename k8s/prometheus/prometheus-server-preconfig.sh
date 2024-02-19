@@ -21,8 +21,18 @@ echo "[Step 2/4] ok"
 nfsdir=/nfs/prometheus/server
 echo "[Step 3/4] Task [Create NFS directory for prometheus-server]"
 if [ ! -e "$nfsdir" ]; then
-    # nfs-exporter.sh로 값 전달
-    ~/_Book_k8sInfra/ch6/6.2.1/nfs-exporter.sh prometheus/server
+    if [ $# -eq 0 ]; then
+        echo "usage: nfs-exporter.sh <name>"; exit 0
+    fi
+
+    if [[ ! -d $nfsdir ]]; then
+        mkdir -p $nfsdir
+        echo "$nfsdir 192.168.1.0/24(rw, sync, no_root_squash)" >> /etc/exports
+        if [[ $(systemctl is-enabled nfs) -eq "disabled" ]]; then
+            systemctl enable nfs
+        fi
+        systemctl restart nfs
+    fi
     # 위의 스크립트로 만든 nfs 서버 권한 처리
     chown 1000:1000 $nfsdir
     echo "$nfsdir created"
@@ -32,12 +42,12 @@ else
     exit 1
 fi
 
-# prometheus-server 체크
+# prometheus-server 볼륨 체크
 echo "[Step 4/4] Task [Create PV,PVC for prometheus-server]"
 pvc=$(kubectl get pvc prometheus-server -o jsonpath={.metadata.name} 2> /dev/null)
 if [ "$pvc" == "" ]; then
     # pv,pvc 생성
-    kubectl apply -f ~/_Book_k8sInfra/ch6/6.2.1/prometheus-server-volume.yaml
+    kubectl apply -f ./prometheus-server-volume.yaml
     echo "[Step 4/4] Successfully completed"
 else
     echo "[Step 4/4] failed: prometheus-server pv,pvc already exist"
