@@ -105,3 +105,7 @@
    - kubectl get clusterrolebindings jenkins-cluster-admin -o yaml 을 입력하여 롤 바인딩이 정상적으로 진행됬는지 확인한다
      
 13. jenkins로 CI/CD 구현
+   - 젠킨스에 로그인하여 접속한다
+   - 젠킨스 관리 > 플러그인 관리 > 설치 가능 으로이동한다
+   - Kubernetes Continuous Deploy 플러그인을 검색하여 체크하고 지금 다운로드하고 재시작후 설치하기를 누른다
+   - 넘어가는 화면에서 설치가 끝나고 재시작을 체크한다
