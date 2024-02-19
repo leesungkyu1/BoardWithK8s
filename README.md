@@ -117,4 +117,10 @@
    - Password에 마스터 노드 리눅스 접속 계정 pw를 기입한다
    - ID에 자격 증명을 사용할때 식별할 값을 넣는다 ex)m-k8s-ssh
    - 하단에 OK 버튼을 눌러 저장한다
-   - 
+   - 다시 Add Credentials버튼을 눌러 쿠버설정 파일에 대한 자격 증명을 추가한다
+   - kind 항목을 Kubernetes configuration (kubeconfig) 항목으로 바꾼다
+   - ID에 자격 증명을 사용할때 식별할 값을 넣는다 ex)kubeconfig
+   - Kubeconfig 항목에서 From a file on the Kubernetes master node를 체크한다
+   - Server 항목에 마스터 노드가 존재하는 컴퓨터의 ip를 입력한다
+   - SSH Credentials에는 아까 설정한 ssh 접근정보를 넣는다 ex)m-k8s-ssh
+   - 하단에 OK 버튼을 눌러 저장한다
