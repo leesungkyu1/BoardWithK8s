@@ -1,5 +1,5 @@
 const asyncRequestBase = async (method, url, body) => {
-    const baseUrl = 'http://127.0.0.1:8080';
+    const baseUrl = 'http://192.168.1.13:8070';
     const decodeUrl = decodeURI(baseUrl + url);
     let response;
 
