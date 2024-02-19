@@ -124,3 +124,11 @@
    - Server 항목에 마스터 노드가 존재하는 컴퓨터의 ip를 입력한다
    - SSH Credentials에는 아까 설정한 ssh 접근정보를 넣는다 ex)m-k8s-ssh
    - 하단에 OK 버튼을 눌러 저장한다
+   - 젠킨스 메인화면으로 돌아와 새로운 Item 메뉴를 클릭한다
+   - Enter an item name에 Item 식별값을 입력한다 ex)simple-board
+   - Pipline 항목을 클릭하고 ok를 누른다
+
+14. Slack hook을 이용한 배포 알림
+15. 그라파나, 프로메테우스 설치
+16. 그라파나, 프로메테우스 연동
+17. 서버 모니터링 경고 Slack 알림
