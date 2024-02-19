@@ -131,5 +131,6 @@
 14. Slack hook을 이용한 배포 알림
 15. 그라파나, 프로메테우스 설치
    - 프로메테우스 = 수집 대상이 공개하는 메트릭 데이터를 모아 시계열 데이터베이스에 저장
+   - prometheus폴더에 prometheus-server-preconfig.sh 파일과 prometheus-server-volume.yaml 파일을 마스터 노드의 같은 폴더에 옮긴다
 17. 그라파나, 프로메테우스 연동
 18. 서버 모니터링 경고 Slack 알림
