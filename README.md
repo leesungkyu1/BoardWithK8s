@@ -133,6 +133,7 @@
    - 프로메테우스 = 수집 대상이 공개하는 메트릭 데이터를 모아 시계열 데이터베이스에 저장
    - prometheus폴더에 prometheus-server-preconfig.sh 파일과 prometheus-server-volume.yaml 파일을 마스터 노드의 같은 폴더에 옮긴다
    - prometheus-server-preconfig.sh를 실행하여 프로메테우스의 데이터를 저장할 볼륨을 설정하고 권한을 준다
+   - kubectl get pv, kubectl get pvc를 실행하여 정삭적으로 작동하였는지 확인한다
    - prometheus-install.sh 파일을 마스터 노드로 옮긴다
 17. 그라파나, 프로메테우스 연동
 18. 서버 모니터링 경고 Slack 알림
