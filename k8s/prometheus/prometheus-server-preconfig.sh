@@ -21,10 +21,6 @@ echo "[Step 2/4] ok"
 nfsdir=/nfs/prometheus/server
 echo "[Step 3/4] Task [Create NFS directory for prometheus-server]"
 if [ ! -e "$nfsdir" ]; then
-    if [ $# -eq 0 ]; then
-        echo "usage: nfs-exporter.sh <name>"; exit 0
-    fi
-
     if [[ ! -d $nfsdir ]]; then
         mkdir -p $nfsdir
         echo "$nfsdir 192.168.1.0/24(rw, sync, no_root_squash)" >> /etc/exports
