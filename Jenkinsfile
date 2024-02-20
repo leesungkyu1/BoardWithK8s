@@ -48,8 +48,6 @@ pipeline{
         stage('k8s deploy'){
             steps{
                 kubernetesDeploy(kubeconfigId: 'kubeconfig', configs: 'back.yaml')
-            }
-            steps{
                 kubernetesDeploy(kubeconfigId: 'kubeconfig', configs: 'front.yaml')
             }
         }
