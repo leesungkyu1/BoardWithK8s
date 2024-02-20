@@ -139,7 +139,7 @@
    - SCM은 git으로 선택한다
    - Repository URL은 git 소스코드가 있는 저장소의 주소를 입력한다
    - Branches to build 항목은 체크할 브렌치를 넣는다 ex) */main
-   - apply버튼을 누르고 저장버튼을 눌러 item을 저장한다
+   - apply버튼을 누르고 저장버튼을 눌러 item을 저장한다 (Jnekinsfile 필요)
 
 14. Slack hook을 이용한 배포 알림
 15. 그라파나, 프로메테우스 설치
@@ -150,5 +150,10 @@
    - prometheus-install.sh 파일을 마스터 노드로 옮긴다
    - kubectl get pods --selector=app=prometheus를 입력하여 프로메테우스가 정상적으로 작동하는지 확인한다
    - kubectl get service prometheus-server를 입력하여 service가 정상 작동하는지 확인하고 external-ip를 브라우저에 입력하여 정상 작동하는지 확인한다
+   - grafana폴더에 grafana-preconfig.sh 파일과 grafana-volume.yaml 파일을 마스터 노드로 옮긴다
+   - grafana-preconfig.sh를 실행하여 프로메테우스의 데이터를 저장할 볼륨을 설정하고 권한을 준다
+   - grafana폴더에 grafana-install.sh 파일을 마스터 노드로 옮긴다
+   - ./grafana-install.sh를 실행하여 헬름으로 그라파나를 설치한다
+     
 17. 그라파나, 프로메테우스 연동
 18. 서버 모니터링 경고 Slack 알림
