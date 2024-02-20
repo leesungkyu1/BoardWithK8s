@@ -68,7 +68,7 @@
    - kubectl expose deploy simple-board --port 8070 --type LoadBalancer을 입력하여 backend를 로드밸런서 타입으로 노출시킨다
    - (해당 명령어는 yaml에 service로도 기술 가능)
 
-11. frontend 배포 (11번 성규 도커파일 완성되면 작성)
+11. frontend 배포
    - kubectl get service를 입력하여 백엔드가 어느 ip로 노출되었는지 파악한다
    - externa-ip로 frontend api 요청 주소를 교체한다
    - front.yaml 파일을 마스터 노드로 옮긴다
@@ -132,6 +132,12 @@
    - 젠킨스 메인화면으로 돌아와 새로운 Item 메뉴를 클릭한다
    - Enter an item name에 Item 식별값을 입력한다 ex)simple-board
    - Pipline 항목을 클릭하고 ok를 누른다
+   - 상위 메뉴의 Build Triggers를 클릭한다
+   - Poll SCM 체크박스를 클릭하고 크론식으로 원격 저장소의 코드가 변경되었는지 체크하는 시간을 넣는다 ex) */10 * * * *
+   - 상위 메뉴의 Pipline을 클릭한다
+   - Definition 에서 Pipline script from SCM을 선택한다
+   - SCM은 git으로 선택한다
+   - Repository URL은 git 소스코드가 있는 저장소의 주소를 입력한다
 
 14. Slack hook을 이용한 배포 알림
 15. 그라파나, 프로메테우스 설치
