@@ -71,6 +71,8 @@
 11. frontend 배포 (11번 성규 도커파일 완성되면 작성)
    - kubectl get service를 입력하여 백엔드가 어느 ip로 노출되었는지 파악한다
    - externa-ip로 frontend api 요청 주소를 교체한다
+   - front.yaml 파일을 마스터 노드로 옮긴다
+   - kubectl apply -f front.yaml을 실행하여 배포한다
 
 12. CI/CD를 위한 jenkins 설치
    - 젠킨스의 설정과 구성 파일들이 파드가 사라져도 유지되도록 PV, PVC를 위한 설정이 필요하다
