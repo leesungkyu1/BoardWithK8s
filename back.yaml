@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-board
+  labels:
+    app: simple-board
+spec:
+  selector:
+    matchLabels:
+      app: simple-board
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: simple-board
+    spec:
+      containers:
+      - name: simple-board
+        image: leesungkyu/simpleboardwithk8s
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: log-volume
+          mountPath: /log
+        ports:
+        - containerPort: 8070
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://10.100.205.49:3306/simple_board?useSSL=false&allowPublicKeyRetrieval=true
+          - name: SPRING_DATASOURCE_USERNAME
+            value: root
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: "1234"
+      imagePullSecrets:
+        - name: 생성한 시크릿 이름
+      volumes:
+        - name: log-volume
+          emptyDir:
+            {}
