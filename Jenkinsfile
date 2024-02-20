@@ -19,16 +19,18 @@ pipeline{
         //     }
         // }
         stage('build'){
-            sh '''
-            cd /server
-            echo 'start bootJar'
-            ./gradlew clean bootJar
+            steps{
+                sh '''
+                cd /server
+                echo 'start bootJar'
+                ./gradlew clean bootJar
 
-            cd ../front/simple_board_with_k8s
-            echo 'start npm build'
-            npm install
-            npm run build
-            '''
+                cd ../front/simple_board_with_k8s
+                echo 'start npm build'
+                npm install
+                npm run build
+                '''
+            }
         }
         stage('docker build and push'){
             steps {
