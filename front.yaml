@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: react-app
-        image: leesungkyu/simpleboardnginx
+        image: akm4545/simpleboard-front
         imagePullPolicy: Always
         ports:
         - containerPort: 80
