@@ -73,6 +73,9 @@
    - externa-ip로 frontend api 요청 주소를 교체한다
    - front.yaml 파일을 마스터 노드로 옮긴다
    - kubectl apply -f front.yaml을 실행하여 배포한다
+   - 정상적으로 배포되었는지 kubectl get pods 로 파드 목록 출력 혹은 kubectl describe deployment react-app으로도 가능
+   - kubectl expose deploy react-app --port 80 --type LoadBalancer을 입력하여 frontend를 로드밸런서 타입으로 노출시킨다
+   - kubectl get service 명령어를 입력하여 external-ip와 포트번호를 확인하고 웹브라우저에 입력하여 정상배포되었는지 확인한다
 
 12. CI/CD를 위한 jenkins 설치
    - 젠킨스의 설정과 구성 파일들이 파드가 사라져도 유지되도록 PV, PVC를 위한 설정이 필요하다
