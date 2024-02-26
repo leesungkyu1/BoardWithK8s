@@ -24,6 +24,7 @@ pipeline{
                 ls
                 cd ./server
                 echo 'start bootJar'
+                chmod 777 ./gradlew
                 ./gradlew clean bootJar
 
                 cd ../front/simple_board_with_k8s
