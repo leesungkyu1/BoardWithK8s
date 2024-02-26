@@ -21,6 +21,7 @@ pipeline{
         stage('build'){
             steps{
                 sh '''
+                ls
                 cd /server
                 echo 'start bootJar'
                 ./gradlew clean bootJar
