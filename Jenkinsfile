@@ -22,7 +22,7 @@ pipeline{
             steps{
                 sh '''
                 ls
-                cd /server
+                cd ./server
                 echo 'start bootJar'
                 ./gradlew clean bootJar
 
@@ -36,11 +36,11 @@ pipeline{
         stage('docker build and push'){
             steps {
                 sh '''
-                cd /server/docker
+                cd ./server/docker
                 docker build -t leesungkyu/simpleboardwithk8s .
                 docker push leesungkyu/simpleboardwithk8s
 
-                cd /front
+                cd ./front
                 docker build -t akm4545/simpleboard-front .
                 docker push akm4545/simpleboard-front
                 '''
