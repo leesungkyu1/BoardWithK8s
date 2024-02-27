@@ -117,6 +117,9 @@
    - 젠킨스 관리 > 플러그인 관리 > 설치 가능 으로이동한다
    - Kubernetes Continuous Deploy 플러그인을 검색하여 체크하고 지금 다운로드하고 재시작후 설치하기를 누른다
    - 넘어가는 화면에서 설치가 끝나고 재시작을 체크한다
+   - 프론트 엔드 배포를 위해 NodeJS 플러그인을 설치해야 한다
+   - Jenkins 관리 -> 플러그인 관리 -> 설치 가능 탭 -> NodeJs 검색 후 설치
+   - Jenkins 관리 -> Global Tool Configuration 메뉴로 이동한다
    - 지속적 배포 플러그인은 자격 증명 정보를 따로 관리하여 등록해야 한다
    - 젠킨스 관리 > Manage Credentials로 이동한다
    - global 버튼을 누른다
