@@ -103,6 +103,8 @@
    - 왼쪽 메뉴에서 Configure Clouds로 들어서 Pod Templates 버튼을 누른다
    - 펼쳐진 포드 템플릿에서 Pod Template details 버튼을 누른다
    - 중간 환경변수에서 JENKINS_URL을 kubectl get service 시 나왔던 external-ip로 변경한다
+   - Container Template 항목에서 고급... 버튼을 누른다
+   - 요청 자원들을 2000m 으로 설정한다
    - 하단에 Apply 후에 Save를 눌러 변경된 설정을 저장한다
    - kubectl get serviceaccounts로 jenkins 서비스 어카운트가 존재하는지 확인한다
    - 젠킨스의 파드에서 쿠버네티스 API 서버와의 통신을 위해 admin 권한을 부여한다
