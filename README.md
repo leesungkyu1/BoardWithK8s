@@ -104,6 +104,7 @@
    - 펼쳐진 포드 템플릿에서 Pod Template details 버튼을 누른다
    - 중간 환경변수에서 JENKINS_URL을 kubectl get service 시 나왔던 external-ip로 변경한다
    - Container Template 항목에서 고급... 버튼을 누른다
+   - cpu 요청은 512로 한다
    - 요청 자원들을 2000m 으로 설정한다
    - 하단에 Apply 후에 Save를 눌러 변경된 설정을 저장한다
    - kubectl get serviceaccounts로 jenkins 서비스 어카운트가 존재하는지 확인한다
