@@ -1,5 +1,10 @@
 pipeline{
     agent any
+
+    tools {
+        nodejs "nodejs-15.6.0"
+    }
+
     stages{
         stage('git pull'){
             steps{
