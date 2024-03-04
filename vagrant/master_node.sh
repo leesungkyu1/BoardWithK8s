@@ -13,4 +13,4 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 
 # config for kubernetes's network 
-kubectl apply -f net_calico.yaml
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
