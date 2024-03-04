@@ -12,5 +12,5 @@ yum install docker-ce-18.06.0.ce-3.el7 docker-ce-cli-18.06.0.ce-3.el7 \
 systemctl enable --now docker
 
 # install kubernetes cluster 
-yum install kubectl-1.18.4 kubelet-1.18.4 kubeadm-1.18.4 -y
+yum install kubectl kubelet kubeadm -y
 systemctl enable --now kubelet
