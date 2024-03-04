@@ -36,11 +36,20 @@
    - 마스터 노드에서 작업 진행
    - MetalLB = 온프레미스 환경에서 로드밸런서를 사용할 수 있게 해줌
    - 헬름 차트 저장소에서 metallb 검색 후 차트 저장소의 주소 확인
-   - (실습 책의 저자의 repo를 사용해서 설치를 진행함)
+   - helm repo add metallb https://metallb.github.io/metallb
+   - helm install metallb metallb/metallb --namespace=metallb-system --create-namespace (추후 옵션이 가능한지 파악 필요)
+   - kubectl get validatingwebhookconfigurations 기존 설정을 확인한다
+   - kubectl delete validatingwebhookconfigurations  metallb-webhook-configuration 기존 설정을 지운다
+   - kubectl get validatingwebhookconfigurations 삭제 확인 
+   - kubectl apply -f metallb-config.yaml 을 실행하여 설정을 배포한다
+   - kubectl describe ipaddresspool.metallb.io --namespace metallb-system 잘 배포되었는지 확인
+  
+   - ------------------------------ 낮은 버전에서 사용 ------------------------------------------
    - helm repo add edu https://iac-source.github.io/helm-charts를 입력하여 헬름 차트 저장소 추가
    - helm repo list 를 사용하여 목록 확인
    - helm repo update를 사용하여 최신 차트 정보를 동기화
    - helm install metallb edu/metallb --namespace=metallb-system --create-namespace --set controller.tag=v0.8.3 --set speaker.tag=v0.8.3 --set configmap.ipRange=192.168.1.11-192.168.1.29 를 사용하여 metallb 설치
+   - ------------------------------ 낮은 버전에서 사용 ------------------------------------------
    - kubectl get pods -n metallb-system 명령어로 정상 배포되었는지 확인
  
 10. DB 설치를 위한 PV, PVC 설정 (쿠버네티스 파드 위에 올린 DB 설정) - 다음 프로젝트때 쿠버네티스 오퍼레이터를 이용해서 DB 구성
