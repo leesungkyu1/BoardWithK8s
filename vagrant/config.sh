@@ -8,16 +8,15 @@ swapoff -a
 # sed to comment the swap partition in /etc/fstab
 sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
 
-# kubernetes repo
-gg_pkg="packages.cloud.google.com/yum/doc" # Due to shorten addr for key
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+# This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/
 enabled=1
-gpgcheck=0
-repo_gpgcheck=0
-gpgkey=https://${gg_pkg}/yum-key.gpg https://${gg_pkg}/rpm-package-key.gpg
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
 
 # Set SELinux in permissive mode (effectively disabling it)
