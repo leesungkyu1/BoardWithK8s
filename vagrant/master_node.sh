@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rm /etc/containerd/config.toml
+rm /etc/containerd/config.toml -y
 systemctl restart containerd
 
 # init kubernetes 
