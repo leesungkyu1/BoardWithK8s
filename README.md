@@ -13,7 +13,7 @@
    - 사용하려는 쿠버네티스 버전에 호환되는 도커 버전을 사용해야 에러 없이 설치됨
 
 4. 쿠버네티스 클러스터 초기화 / 마스터 노드 설정 / Pod 통신을 위한 calico 세팅
-   - net_calico.yaml 오브젝트 파일과 master_node.sh 파일 작성 후 master_node.sh 실행
+   - master_node.sh 파일 작성 후 master_node.sh 실행
    - master_node.sh = 쿠버네티스 클러스터 초기화 / 마스터 노드 설정 / calico 실행
    - calico = Pod간의 네트워크 동신을 위한 네트워크 플러그인
 
