@@ -1,4 +1,9 @@
 pipeline{
+    environment { 
+        DOCKERHUB_CREDENTIALS = credentials('docker-login') // jenkins에 등록해 놓은 docker hub credentials 이름
+        dockerImage = '' 
+    }
+
     agent any
 
     tools {
@@ -39,12 +44,17 @@ pipeline{
                 '''
             }
         }
+        stage('docker login'){
+          steps{
+              sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          }
+        }
         stage('docker build and push'){
             steps {
                 sh '''
                 cd ./server
-                docker build -t leesungkyu/simpleboardwithk8s -f docker/Dockerfile .
-                docker push leesungkyu/simpleboardwithk8s
+                docker build -t akm4545/simpleboard-back -f docker/Dockerfile .
+                docker push akm4545/simpleboard-back
 
                 cd ./front
                 docker build -t akm4545/simpleboard-front .

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: simple-board
-        image: leesungkyu/simpleboardwithk8s
+        image: akm4545/simpleboard-back
         imagePullPolicy: Always
         volumeMounts:
         - name: log-volume
