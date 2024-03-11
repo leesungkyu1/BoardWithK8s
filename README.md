@@ -169,6 +169,10 @@
    - 서버 컴퓨터에 git config --global user.name "사용자 이름", git config --global user.email "사용자 이메일" 명령어를 입력한다
    - git config --global credential.helper "store --file ~/.git-cred"을 입력하여 계정정보를 저장한다
    - 깃 토큰을 발급하여 password를 입력한다
+   - Jenkins 관리 -> Manage Credentials -> global -> Add Credentials를 누른다
+   - UserName에 도커허브 계정을 넣는다
+   - Password에 도커허브 토큰을 넣는다
+   - id에 자격증명을 식별할 수 있는 값을 넣는다
 
 14. Slack hook을 이용한 배포 알림
 15. 그라파나, 프로메테우스 설치
