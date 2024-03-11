@@ -115,8 +115,7 @@
    - 펼쳐진 포드 템플릿에서 Pod Template details 버튼을 누른다
    - 중간 환경변수에서 JENKINS_URL을 kubectl get service 시 나왔던 external-ip로 변경한다
    - Container Template 항목에서 고급... 버튼을 누른다
-   - cpu 요청은 512로 한다
-   - 요청 자원들을 2000m 으로 설정한다
+   - 에이전트용 파드 자원 부족시 클러스터 망가질 위험이 있음!!!
    - 하단에 Apply 후에 Save를 눌러 변경된 설정을 저장한다
    - kubectl get serviceaccounts로 jenkins 서비스 어카운트가 존재하는지 확인한다
    - 젠킨스의 파드에서 쿠버네티스 API 서버와의 통신을 위해 admin 권한을 부여한다
@@ -129,11 +128,17 @@
    - Kubernetes Continuous Deploy 플러그인을 검색하여 체크하고 지금 다운로드하고 재시작후 설치하기를 누른다
    - 넘어가는 화면에서 설치가 끝나고 재시작을 체크한다
    - 프론트 엔드 배포를 위해 NodeJS 플러그인을 설치해야 한다
+   - ----------------------------- 젠킨스 버전 문제로 다른 방법 사용 ----------------------------------
    - Jenkins 관리 -> 플러그인 관리 -> 설치 가능 탭 -> NodeJs 검색 후 설치
+   - Jenkins 관리 -> 플러그인 관리 -> 지금확인 버튼 클릭
+   - Version에 NodeJS 15.6.0을 작성한다
+   - - ----------------------------- 젠킨스 버전 문제로 다른 방법 사용 ----------------------------------
    - Jenkins 관리 -> Global Tool Configuration 메뉴로 이동한다
    - 하단에 NodeJS -> Add NodeJS 버튼을 누른다
+   - Add Installer 에서 Extract *.zip... 을 누른다
+   - Download URL for binary archive 항목에 https://nodejs.org/dist/v17.4.0/node-v17.4.0-linux-x64.tar.gz를 입력
+   - Subdirectory of extracted archive 항목에 node-v17.4.0-linux-x64를 입력
    - Name 탭에 이름을 작성한다 ex)nodejs-15.6.0
-   - Version에 NodeJS 15.6.0을 작성한다
    - 하단에 apply save 버튼을 누른다
    - 지속적 배포 플러그인은 자격 증명 정보를 따로 관리하여 등록해야 한다
    - 젠킨스 관리 > Manage Credentials로 이동한다
