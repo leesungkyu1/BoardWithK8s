@@ -42,18 +42,7 @@ pipeline{
         stage('docker build and push'){
             steps {
                 sh '''
-                ls
                 cd ./server
-
-                ls
-                cd ./build
-
-                ls 
-                cd ./libs
-
-                ls
-
-                cd ./server/docker
                 docker build -t leesungkyu/simpleboardwithk8s .
                 docker push leesungkyu/simpleboardwithk8s
 
