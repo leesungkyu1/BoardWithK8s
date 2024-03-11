@@ -32,11 +32,6 @@ pipeline{
                 chmod 777 ./gradlew
                 ./gradlew clean bootJar
 
-                ls
-                cd ./build
-                ls
-                cd ./libs
-
                 cd ../front/simple_board_with_k8s
                 echo 'start npm build'
                 npm install
@@ -47,6 +42,17 @@ pipeline{
         stage('docker build and push'){
             steps {
                 sh '''
+                ls
+                cd ./server
+
+                ls
+                cd ./build
+
+                ls 
+                cd ./libs
+
+                ls
+
                 cd ./server/docker
                 docker build -t leesungkyu/simpleboardwithk8s .
                 docker push leesungkyu/simpleboardwithk8s
