@@ -43,7 +43,7 @@ pipeline{
             steps {
                 sh '''
                 cd ./server
-                docker build -t leesungkyu/simpleboardwithk8s .
+                docker build -t leesungkyu/simpleboardwithk8s -f docker/Dockerfile .
                 docker push leesungkyu/simpleboardwithk8s
 
                 cd ./front
