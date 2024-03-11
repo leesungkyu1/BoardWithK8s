@@ -32,6 +32,11 @@ pipeline{
                 chmod 777 ./gradlew
                 ./gradlew clean bootJar
 
+                ls
+                cd ./build
+                ls
+                cd ./libs
+
                 cd ../front/simple_board_with_k8s
                 echo 'start npm build'
                 npm install
