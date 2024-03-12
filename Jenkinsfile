@@ -11,11 +11,11 @@ pipeline{
     }
 
     stages{
-        // stage('git pull'){
-        //     steps{
-        //         git url: 'https://github.com/leesungkyu1/BoardWithK8s.git', branch: 'main'
-        //     }
-        // }
+        stage('git pull'){
+            steps{
+                git url: 'https://github.com/leesungkyu1/BoardWithK8s.git', branch: 'main'
+            }
+        }
         // stage('build'){
         //     steps{
         //         sh '''
