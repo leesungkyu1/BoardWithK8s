@@ -56,7 +56,7 @@ pipeline{
                 docker build -t akm4545/simpleboard-back -f docker/Dockerfile .
                 docker push akm4545/simpleboard-back
 
-                cd ../front
+                cd ../front/simple_board_with_k8s
                 docker build -t akm4545/simpleboard-front .
                 docker push akm4545/simpleboard-front
                 '''
