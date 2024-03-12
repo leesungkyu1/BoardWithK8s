@@ -5,6 +5,11 @@ metadata:
   labels:
     app: simple-board
 spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   selector:
     matchLabels:
       app: simple-board
@@ -25,7 +30,7 @@ spec:
         - containerPort: 8070
         env:
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:mysql://10.100.205.49:3306/simple_board?useSSL=false&allowPublicKeyRetrieval=true
+            value: jdbc:mysql://10.104.170.189:3306/simple_board?useSSL=false&allowPublicKeyRetrieval=true
           - name: SPRING_DATASOURCE_USERNAME
             value: root
           - name: SPRING_DATASOURCE_PASSWORD
