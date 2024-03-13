@@ -55,6 +55,7 @@ pipeline{
                 //kubernetesDeploy kubeconfigId: 'kubeconfig', configs: 'back.yaml', enableConfigSubstitution: true
                 withCredentials([kubeconfigFile(credentialsId: kubeconfig, variable: 'KUBECONFIG')]) {
                     sh '''
+                        ls
                         kubectl rollout restart deployment/simple-board
                         kubectl expose deploy simple-board --port 8070 --type LoadBalancer
                     '''
