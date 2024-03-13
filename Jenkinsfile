@@ -53,6 +53,10 @@ pipeline{
         stage('k8s deploy'){
             steps{
                 //kubernetesDeploy kubeconfigId: 'kubeconfig', configs: 'back.yaml', enableConfigSubstitution: true
+                sh '''
+                    echo 'start'
+                '''
+
                 withCredentials([kubeconfigFile(credentialsId: kubeconfig, variable: 'KUBECONFIG')]) {
                     sh '''
                         ls
