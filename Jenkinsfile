@@ -62,17 +62,31 @@ pipeline{
                 withCredentials([kubeconfigFile(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh '''
                         kubectl apply -f back.yaml
-                        kubectl expose deploy simple-board --port 8080 --type LoadBalancer
                     '''
                 }
+                // service 노출 쉘 스크립트로 존재하지 않을때만 배포하도록 수정해야함
+                //kubectl expose deploy simple-board --port 8080 --type LoadBalancer
 
                 //kubernetesDeploy kubeconfigId: 'kubeconfig', configs: 'front.yaml', enableConfigSubstitution: true
                 withCredentials([kubeconfigFile(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh '''
                         kubectl apply -f front.yaml
-                        kubectl expose deploy react-app --port 80 --type LoadBalancer
                     '''
                 }
+                //kubectl expose deploy react-app --port 80 --type LoadBalancer
+            }
+        }
+        // 변경사항 알림
+        stage('send diff'){
+            steps{
+                script{
+                    def publisher = LastChanges.getLastChangesPublisher "PREVIOUS_REVISION", "SIDE", "LINE", true, true, "", "", "", "", ""
+                    publisher.publishLastChanges()
+                    def htmlDiff = publisher.getHtmlDiff()
+                    writeFile file: "deploy-diff-${env.BUILD_NUMBER}.html", text: htmlDiff
+                }
+
+                slackSend(message: """${env.JOB_NAME} #${env.BUILD_NUMBER} End (<${env.BUILD_URL}/last-changes|Check Last changed>)""", color: 'good', tokenCredentialId: 'slack-key')
             }
         }
         // 슬랙 알림용 스테이지
