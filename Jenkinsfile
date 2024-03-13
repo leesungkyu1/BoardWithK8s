@@ -53,14 +53,9 @@ pipeline{
         stage('k8s deploy'){
             steps{
                 //kubernetesDeploy kubeconfigId: 'kubeconfig', configs: 'back.yaml', enableConfigSubstitution: true
-                sh '''
-                    echo 'start'
-                '''
-
                 withCredentials([kubeconfigFile(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh '''
-                        ls
-                        kubectl rollout restart deployment/simple-board
+                        kubectl apply -f back.yaml
                         kubectl expose deploy simple-board --port 8070 --type LoadBalancer
                     '''
                 }
