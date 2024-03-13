@@ -224,9 +224,8 @@
       operator: "Exists"
       effect: "NoSchedule"
    - 를 입력한다
+   - pushgateway와 alertmanager항목의 enable을 false로 변경하여 비활성화 시킨다
    - values.yaml 파일 경로에서 helm install prometheus prometheus-community/prometheus -f values.yaml 명령어를 입력하여 프로메테우스를 설치한다
-   
-   - kubectl get pods --selector=app=prometheus를 입력하여 프로메테우스가 정상적으로 작동하는지 확인한다
    - kubectl get service prometheus-server를 입력하여 service가 정상 작동하는지 확인하고 external-ip를 브라우저에 입력하여 정상 작동하는지 확인한다
    - grafana폴더에 grafana-preconfig.sh 파일과 grafana-volume.yaml 파일을 마스터 노드로 옮긴다
    - grafana-preconfig.sh를 실행하여 프로메테우스의 데이터를 저장할 볼륨을 설정하고 권한을 준다
