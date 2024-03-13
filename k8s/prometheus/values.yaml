@@ -382,11 +382,10 @@ server:
   ## Node tolerations for server scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
   ##
-  tolerations: []
-    # - key: "key"
-    #   operator: "Equal|Exists"
-    #   value: "value"
-    #   effect: "NoSchedule|PreferNoSchedule|NoExecute(1.6 only)"
+  tolerations: 
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
 
   ## Node labels for Prometheus server pod assignment
   ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
@@ -654,9 +653,9 @@ server:
   ## Security context to be added to server pods
   ##
   securityContext:
-    runAsUser: 65534
+    runAsUser: 1000
     runAsNonRoot: true
-    runAsGroup: 65534
+    runAsGroup: 1000
     fsGroup: 65534
 
   ## Security context to be added to server container
