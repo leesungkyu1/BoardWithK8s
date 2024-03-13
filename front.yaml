@@ -8,7 +8,6 @@ spec:
   selector:
     matchLabels:
       app: react-app
-  replicas: 2
   template:
     metadata:
       labels:
