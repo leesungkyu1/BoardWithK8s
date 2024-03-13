@@ -54,13 +54,19 @@ pipeline{
             steps{
                 //kubernetesDeploy kubeconfigId: 'kubeconfig', configs: 'back.yaml', enableConfigSubstitution: true
                 withCredentials([kubeconfigFile(credentialsId: kubeconfig, variable: 'KUBECONFIG')]) {
-                    sh "kubectl rollout restart deployment/simple-board"
-                    sh "kubectl expose deploy simple-board --port 8070 --type LoadBalancer"
+                    sh '''
+                        kubectl rollout restart deployment/simple-board
+                        kubectl expose deploy simple-board --port 8070 --type LoadBalancer
+                    '''
                 }
 
-                kubernetesDeploy kubeconfigId: 'kubeconfig', configs: 'front.yaml', enableConfigSubstitution: true
-                sh "kubectl apply -f front.yaml"
-                sh "kubectl expose deploy react-app --port 80 --type LoadBalancer"
+                //kubernetesDeploy kubeconfigId: 'kubeconfig', configs: 'front.yaml', enableConfigSubstitution: true
+                withCredentials([kubeconfigFile(credentialsId: kubeconfig, variable: 'KUBECONFIG')]) {
+                    sh '''
+                        kubectl apply -f front.yaml
+                        kubectl expose deploy react-app --port 80 --type LoadBalancer
+                    '''
+                }
             }
         }
     }
