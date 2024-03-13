@@ -218,7 +218,7 @@
    - existingClaim 항목의 값을 방금 만든 pvc값으로 바꾼다
    - type 항목의 값을 metallb로부터 외부 IP를 할당받아 웹 ui로 확인할 수 있도록 LoadBalancer로 설정한다
    - extraFlags 항목중에 storage.tsdb.no-lockfile 항목의 주석을 해제한다 (해당 설정이 없으면 설정 변경작업 실패)
-   - securityContext 항목의 runAsGroup과 runAsUser를 1000번으로 바꾼다
+   - securityContext 항목의 runAsGroup,runAsUser,fsgroup 1000번으로 바꾼다 (nfs서버 유저가 1000번이기 때문)
    - tolerations의 []를 지우고
    - - key: "node-role.kubernetes.io/control-plane"
       operator: "Exists"
@@ -230,7 +230,20 @@
    - grafana폴더에 grafana-preconfig.sh 파일과 grafana-volume.yaml 파일을 마스터 노드로 옮긴다
    - grafana-preconfig.sh를 실행하여 프로메테우스의 데이터를 저장할 볼륨을 설정하고 권한을 준다
    - grafana폴더에 grafana-install.sh 파일을 마스터 노드로 옮긴다
+   ---------------------------------- kubernetes 버전 변경으로 인해 학습용 helm template 미지원 -------------------
    - ./grafana-install.sh를 실행하여 헬름으로 그라파나를 설치한다
-     
+   ---------------------------------- kubernetes 버전 변경으로 인해 학습용 helm template 미지원 -------------------
+   - helm repo add grafana https://grafana.github.io/helm-charts를 입력하여 저장소를 추가한다
+   - helm repo update를 입력하여 저장소를 최신화 시킨다
+   - git clone https://github.com/grafana/helm-charts.git을 입력하여 그라파나 헬름 차트를 다운받는다
+   - helm-chart -> charts -> grafana 경로에 있는 values.yaml을 수정한다
+   - persistence에서 enabled를 true로 설정한다
+   - accessModes와 size 항목은 주석처리한다
+   - existingClaim항목은 주석을 해제하고 방금 만든 pvc 명을 기입한다
+   - service 하위의 type 값 ClusterIP를 지우고 LoadBalancer를 넣는다
+   - securityContext 하위의 runAsUser, runAsGroup, fsGroup를 1000번으로 바꾼다
+   - adminPassword부분의 주석을 해제하고 비밀번호를 admin으로 설정한다
+   - helm install grafana grafana/grafana -f values.yaml을 입력하여 그라파나를 설치한다
+   - kubectl get service를 입력하여 노출된 IP를 확인하고 접속하여 정상 배포되었는지 확인한다
 16. 그라파나, 프로메테우스 연동
 17. 서버 모니터링 경고 Slack 알림
