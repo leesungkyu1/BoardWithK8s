@@ -196,13 +196,18 @@
    - apply 후 save를 눌러 저장한다
    - Jenkinsfile에 slack 관련 stage를 주석 해제하고 깃에 업로드 한다
    - 빌드를 진행시키고 알림이 오는지 확인한다
+   - 배포 변경사항 자동 비교를 위한 플러그인 설치
+   - 젠킨스 홈 -> 젠킨스 관리 -> 플러그인 관리 -> 설치 가능 탭으로 이동한다
+   - Last Changes를 검색하여 설치한다
+   - Jenkinsfile에 diff stage를 주석 해제하고 빌드한다
+   - slack에 메세지가 잘 오는지 확인한다
      
 15. 그라파나, 프로메테우스 설치
    - 프로메테우스 = 수집 대상이 공개하는 메트릭 데이터를 모아 시계열 데이터베이스에 저장
    - prometheus폴더에 prometheus-server-preconfig.sh 파일과 prometheus-server-volume.yaml 파일을 마스터 노드의 같은 폴더에 옮긴다
    - prometheus-server-preconfig.sh를 실행하여 프로메테우스의 데이터를 저장할 볼륨을 설정하고 권한을 준다
    - kubectl get pv, kubectl get pvc를 실행하여 정삭적으로 작동하였는지 확인한다
-   - prometheus-install.sh 파일을 마스터 노드로 옮긴다
+   - prometheus-install.sh 파일을 마스터 노드로 옮기고 실행시켜 설치한다
    - kubectl get pods --selector=app=prometheus를 입력하여 프로메테우스가 정상적으로 작동하는지 확인한다
    - kubectl get service prometheus-server를 입력하여 service가 정상 작동하는지 확인하고 external-ip를 브라우저에 입력하여 정상 작동하는지 확인한다
    - grafana폴더에 grafana-preconfig.sh 파일과 grafana-volume.yaml 파일을 마스터 노드로 옮긴다
