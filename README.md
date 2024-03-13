@@ -173,6 +173,7 @@
    - UserName에 도커허브 계정을 넣는다
    - Password에 도커허브 토큰을 넣는다
    - id에 자격증명을 식별할 수 있는 값을 넣는다
+   
 14. Slack hook을 이용한 배포 알림
    - 슬랙에 회원가입 후 설치를 진행한다
    - 왼쪽 메뉴 하단에 앱 메뉴에서 앱 추가 버튼을 누른다
@@ -190,7 +191,13 @@
    - 젠킨스 홈 -> 젠킨스 관리 -> 플러그인 관리 -> 설치 가능 탭으로 이동한다
    - Slack Notification을 검색하여 지금 다운로드하고 재시작 후 설치하기 버튼을 누른다
    - 다음 화면에서 설치가 끝나고 실행 중인 작업이 없으면 Jenkins 재시작 체크박스를 체크한다
-16. 그라파나, 프로메테우스 설치
+   - 젠킨스 홈 -> 젠킨스 관리 -> 시스템 설정으로 이동한다
+   - 스크롤 최하단에 Slack 항목에 Workspace = 도메인, Credential = 방금 설정한 slack-key, Default channel/member id = 젠킨스 메세지를 받으려고 생성한 채널 명을 입력한다
+   - apply 후 save를 눌러 저장한다
+   - Jenkinsfile에 slack 관련 stage를 주석 해제하고 깃에 업로드 한다
+   - 빌드를 진행시키고 알림이 오는지 확인한다
+     
+15. 그라파나, 프로메테우스 설치
    - 프로메테우스 = 수집 대상이 공개하는 메트릭 데이터를 모아 시계열 데이터베이스에 저장
    - prometheus폴더에 prometheus-server-preconfig.sh 파일과 prometheus-server-volume.yaml 파일을 마스터 노드의 같은 폴더에 옮긴다
    - prometheus-server-preconfig.sh를 실행하여 프로메테우스의 데이터를 저장할 볼륨을 설정하고 권한을 준다
@@ -203,5 +210,5 @@
    - grafana폴더에 grafana-install.sh 파일을 마스터 노드로 옮긴다
    - ./grafana-install.sh를 실행하여 헬름으로 그라파나를 설치한다
      
-17. 그라파나, 프로메테우스 연동
-18. 서버 모니터링 경고 Slack 알림
+16. 그라파나, 프로메테우스 연동
+17. 서버 모니터링 경고 Slack 알림
