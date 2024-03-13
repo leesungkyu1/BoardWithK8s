@@ -57,7 +57,7 @@ pipeline{
                     echo 'start'
                 '''
 
-                withCredentials([kubeconfigFile(credentialsId: kubeconfig, variable: 'KUBECONFIG')]) {
+                withCredentials([kubeconfigFile(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh '''
                         ls
                         kubectl rollout restart deployment/simple-board
@@ -66,7 +66,7 @@ pipeline{
                 }
 
                 //kubernetesDeploy kubeconfigId: 'kubeconfig', configs: 'front.yaml', enableConfigSubstitution: true
-                withCredentials([kubeconfigFile(credentialsId: kubeconfig, variable: 'KUBECONFIG')]) {
+                withCredentials([kubeconfigFile(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh '''
                         kubectl apply -f front.yaml
                         kubectl expose deploy react-app --port 80 --type LoadBalancer
