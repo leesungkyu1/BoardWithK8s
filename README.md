@@ -245,12 +245,13 @@
    - adminPassword부분의 주석을 해제하고 비밀번호를 admin으로 설정한다
    - helm install grafana grafana/grafana -f values.yaml을 입력하여 그라파나를 설치한다
    - kubectl get service를 입력하여 노출된 IP를 확인하고 접속하여 정상 배포되었는지 확인한다
-16. 그라파나, 프로메테우스 연동
+   
+16. 그라파나, 프로메테우스 연동 (노드 모니터링)
    - 그라파나에 접속하여 로그인한다
    - 왼쪽 menu에 Connections로 들어가 Data sources 탭을 클릭한다
    - Prometheus를 클릭한다
    - name에 Prometheus를 입력하고 Default 항목을 체크한다
-   - Connection 항목에 http://prometheus-server.default.svc.cluster.local (CoreDNS 기능)을 입력하고 Save & Test 버튼을 누른다\
+   - Connection 항목에 http://prometheus-server.default.svc.cluster.local (CoreDNS 기능)을 입력하고 Save & Test 버튼을 누른다
    - 왼쪽 메뉴에서 Dashboard를 클릭한다
    - Create Dashboard 버튼을 누르고 Add visualization버튼을 누른다
    - 데이터 소스로 아까 만든 프로메테우스를 넣는다
@@ -259,13 +260,13 @@
    - 오른쪽 패널에서 Title에 노드 CPU 사용률을 입력한다
    - 오른쪽 상단의 메트릭 수집 설정 구간을 Last 6 hours에서 Last 1 hour로 변경한다
    - 오른쪽 패널 탭을 아래로 스크롤 하여 Standard options 탭의 unit을 Misc -> percent(0.0-1.0)으로 선택한다
-   - 오른쪽 최상단의 Apply 버튼을 눌러 저장한다
+   - 오른쪽 최상단의 Save 버튼을 눌러 저장한다
    - 오른쪽 상단의 Add -> visualization 버튼을 눌러 새 패널을 생성한다
    - 제목을 노드 메모리 사용량으로 설정한다
    - PromQL을 node_memory_Active_bytes를 입력한다
    - 입력후 하단 options를 열어 Legend의 Auto를 Custom으로 바꾸고 {{}} 안에 node를 넣는다
    - Standard options 탭의 unit을 Data -> bytes(SI)로 선택한다
-   - apply를 눌러 저장한다
+   - Save 눌러 저장한다
    - 새 패널을 생성한다
    - 제목: 노드 네트워크 평균 송신/수신 트래픽
    - PromQL: avg(rate(node_network_transmit_bytes_total[5m])) by (node)
@@ -273,7 +274,8 @@
    - 하단의 Add query 버튼을 누른다
    - PromQL: avg(rate(node_network_receive_bytes_total[5m])) by (node) * - 1
    - Legend: {{node}}-receive
-   - Apply 버튼을 눌러 저장한다
+   - Standard options 탭의 unit을 Data -> bytes(SI)로 선택한다
+   - Save 버튼을 눌러 저장한다
    - 새 패널 생성
    - 제목: 노드 상태
    - PromQL: up{job="kubernetes-nodes"}
@@ -285,4 +287,36 @@
    - Condition에 1을 입력하고 Display text에 Good을 입력한다
    - 하단의 Add value mapping버튼을 눌러 0 = Bad를 입력한다
    - 오른쪽에 color를 눌러 Bad의 색상을 빨간색으로 바꾼다
+   - Save를 눌러 저장한다
+   - add 버튼을 눌러 row를 선택한다
+   - row title에서 톱니바퀴를 눌러 제목을 Cluster Metrics로 변경한다
+   - 패널들을 드래그해 Cluster Metrics밑에 속하도록 정렬시킨다
+   - add 버튼 옆에 save 버튼을 눌러 Dash Board를 저장한다
+     
+17. 그라파나, 프로메테우스 연동 (파드 모니터링)
+   - 오른쪽 상단의 톱니바퀴를 누른다
+   - Variables 버튼을 누르고 Add variable 버튼을 누른다
+   - Name 항목에 Namespace를 입력한다
+   - Label 항목에 Namespace를 입력한다
+   - Query 항목에 Query type을 Label Values로 선택하고 Label은 namespace로 설정한다
+   - Include All option을 체크한다
+   - Custom all value에 .+를 입력한다
+   - 하단 Preview of values 항목에 namespace들이 출력되는지 확인한다
+   - Apply 버튼을 눌러 메인화면으로 나온다
+   - 다시 변수 추가 버튼을 누른다
+   - Name: Pod
+   - Label: Pod
+   - Query Type: Label Value
+   - Label: Pod
+   - Metric: 방금 설정한 Namespace
+   - Include All option: true
+   - Custom all value: .+
+   - Save dashboard 버튼을 눌러 저장한다
+   - Add 버튼을 눌러 row를 생성한다
+   - row 명을 $Namespace Namespace Metrics로 입력한다
+   - 새 패널 생성
+   - 제목: $Pod Pod CPU 사용률
+   - PromQL: sum(rate(container_cpu_usage_seconds_total{namespace=~"Namespace",pod=~"&Pod",container!=""}[5m])) by (pod)
+   - Legend: {{pod}}
+   - Standard options 탭의 unit을 Misc -> percent(0.0-1.0)로 선택한다
 17. 서버 모니터링 경고 Slack 알림
