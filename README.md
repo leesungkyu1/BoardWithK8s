@@ -246,4 +246,9 @@
    - helm install grafana grafana/grafana -f values.yaml을 입력하여 그라파나를 설치한다
    - kubectl get service를 입력하여 노출된 IP를 확인하고 접속하여 정상 배포되었는지 확인한다
 16. 그라파나, 프로메테우스 연동
+   - 그라파나에 접속하여 로그인한다
+   - 왼쪽 menu에 Connections로 들어가 Data sources 탭을 클릭한다
+   - Prometheus를 클릭한다
+   - name에 Prometheus를 입력하고 Default 항목을 체크한다
+   - 
 17. 서버 모니터링 경고 Slack 알림
