@@ -257,4 +257,13 @@
    - 다음 나오는 창에서 하단에 code 버튼을 누르고 메트릭 브라우저 옆에 입력창에 해당 내용을 입력한다
    - 1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (node)를 입력한다
    - 오른쪽 패널에서 Title에 노드 CPU 사용률을 입력한다
+   - 오른쪽 상단의 메트릭 수집 설정 구간을 Last 6 hours에서 Last 1 hour로 변경한다
+   - 오른쪽 패널 탭을 아래로 스크롤 하여 Standard options 탭의 unit을 Misc -> percent(0.0-1.0)으로 선택한다
+   - 오른쪽 최상단의 Apply 버튼을 눌러 저장한다
+   - 오른쪽 상단의 Add -> visualization 버튼을 눌러 새 패널을 생성한다
+   - 제목을 노드 메모리 사용량으로 설정한다
+   - PromQL을 node_memory_Active_bytes를 입력한다
+   - 입력후 하단 options를 열어 Legend의 Auto를 Custom으로 바꾸고 {{}} 안에 node를 넣는다
+   - Standard options 탭의 unit을 Data -> bytes(SI)로 선택한다
+   - apply를 눌러 저장한다
 17. 서버 모니터링 경고 Slack 알림
