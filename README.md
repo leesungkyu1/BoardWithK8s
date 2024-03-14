@@ -250,5 +250,5 @@
    - 왼쪽 menu에 Connections로 들어가 Data sources 탭을 클릭한다
    - Prometheus를 클릭한다
    - name에 Prometheus를 입력하고 Default 항목을 체크한다
-   - 
+   - Connection 항목에 http://prometheus-server.default.svc.cluster.local (CoreDNS 기능)을 입력하고 Save & Test 버튼을 누른다
 17. 서버 모니터링 경고 Slack 알림
