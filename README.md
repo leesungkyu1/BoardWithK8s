@@ -250,5 +250,11 @@
    - 왼쪽 menu에 Connections로 들어가 Data sources 탭을 클릭한다
    - Prometheus를 클릭한다
    - name에 Prometheus를 입력하고 Default 항목을 체크한다
-   - Connection 항목에 http://prometheus-server.default.svc.cluster.local (CoreDNS 기능)을 입력하고 Save & Test 버튼을 누른다
+   - Connection 항목에 http://prometheus-server.default.svc.cluster.local (CoreDNS 기능)을 입력하고 Save & Test 버튼을 누른다\
+   - 왼쪽 메뉴에서 Dashboard를 클릭한다
+   - Create Dashboard 버튼을 누르고 Add visualization버튼을 누른다
+   - 데이터 소스로 아까 만든 프로메테우스를 넣는다
+   - 다음 나오는 창에서 하단에 code 버튼을 누르고 메트릭 브라우저 옆에 입력창에 해당 내용을 입력한다
+   - 1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (node)를 입력한다
+   - 오른쪽 패널에서 Title에 노드 CPU 사용률을 입력한다
 17. 서버 모니터링 경고 Slack 알림
