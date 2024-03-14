@@ -266,4 +266,23 @@
    - 입력후 하단 options를 열어 Legend의 Auto를 Custom으로 바꾸고 {{}} 안에 node를 넣는다
    - Standard options 탭의 unit을 Data -> bytes(SI)로 선택한다
    - apply를 눌러 저장한다
+   - 새 패널을 생성한다
+   - 제목: 노드 네트워크 평균 송신/수신 트래픽
+   - PromQL: avg(rate(node_network_transmit_bytes_total[5m])) by (node)
+   - Legend: {{node}}-transmit
+   - 하단의 Add query 버튼을 누른다
+   - PromQL: avg(rate(node_network_receive_bytes_total[5m])) by (node) * - 1
+   - Legend: {{node}}-receive
+   - Apply 버튼을 눌러 저장한다
+   - 새 패널 생성
+   - 제목: 노드 상태
+   - PromQL: up{job="kubernetes-nodes"}
+   - Legend: {{instance}}
+   - 오른쪽 상단의 Time series 버튼을 눌러 Stat으로 바꾼다
+   - Stat styles탭에서 Orientation을 Horizontal로 바꾼다
+   - Graph mode를 None으로 바꾼다
+   - Value mappings탭에서 Add value mapping 버튼을 누른다
+   - Condition에 1을 입력하고 Display text에 Good을 입력한다
+   - 하단의 Add value mapping버튼을 눌러 0 = Bad를 입력한다
+   - 오른쪽에 color를 눌러 Bad의 색상을 빨간색으로 바꾼다
 17. 서버 모니터링 경고 Slack 알림
