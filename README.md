@@ -316,7 +316,17 @@
    - row 명을 $Namespace Namespace Metrics로 입력한다
    - 새 패널 생성
    - 제목: $Pod Pod CPU 사용률
-   - PromQL: sum(rate(container_cpu_usage_seconds_total{namespace=~"Namespace",pod=~"&Pod",container!=""}[5m])) by (pod)
+   - PromQL: sum(rate(container_cpu_usage_seconds_total{namespace=~"$Namespace",pod=~"$Pod",container!=""}[5m])) by (pod)
    - Legend: {{pod}}
    - Standard options 탭의 unit을 Misc -> percent(0.0-1.0)로 선택한다
+   - 새 패널 생성
+   - 제목: $Pod Pod 메모리 사용량
+   - PromQL: sum(container_memory_usage_bytes{namespace=~"$Namespace",pod=~"$Pod",container!=""}) by (pod)
+   - Legend: {{pod}}
+   - Standard options 탭의 unit을 Data -> bytes(SI)로 선택한다
+   - 새 패널 생성
+   - 제목: API 서버 응답 시간(5분/SAL 99%)
+   - PromQL: histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket[5m])) by (le))
+   - 시각화: Stat
+   - Standard options 탭의 unit을 Time -> seconds(s)로 선택한다
 17. 서버 모니터링 경고 Slack 알림
