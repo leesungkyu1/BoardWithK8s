@@ -337,3 +337,8 @@
    - Stat Styles Orientation = Horizontal
    - $Namespace Namespace Metrics row 밑으로 지금까지 생성한 패널을 옮긴다
 17. 서버 모니터링 경고 Slack 알림
+   - 슬랙을 연다
+   - webhook을 검색해 Incomming WebHooks를 추가한다
+   - 새 채널 생성을 눌러 알림을 받을 채널을 생성한다
+   - 채널을 등록하고 웹훅을 등록한다
+   - 웹훅 URL을 복사해둔다
