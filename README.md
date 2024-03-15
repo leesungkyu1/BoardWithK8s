@@ -342,3 +342,7 @@
    - 새 채널 생성을 눌러 알림을 받을 채널을 생성한다
    - 채널을 등록하고 웹훅을 등록한다
    - 웹훅 URL을 복사해둔다
+   - alert-manager.yaml 파일의 Slack-URL 값을 발급받은 URL값으로 바꾼다
+   - alert-manager.yaml를 마스터 노드로 옮기고 kubectl apply -f alert-notifier.yaml을 실행하여 콘피그맵을 배포한다
+   - prometheus-alertmanager-preconfig.sh파일과 prometheus-alertmanager-volume.yaml파일을 마스터 노드로 옮긴다
+   - prometheus-alertmanager-preconfig.sh를 실행하여 alert-manager가 사용할 pv,pvc를 생성한다
