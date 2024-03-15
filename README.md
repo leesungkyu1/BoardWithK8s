@@ -346,3 +346,9 @@
    - alert-manager.yaml를 마스터 노드로 옮기고 kubectl apply -f alert-notifier.yaml을 실행하여 콘피그맵을 배포한다
    - prometheus-alertmanager-preconfig.sh파일과 prometheus-alertmanager-volume.yaml파일을 마스터 노드로 옮긴다
    - prometheus-alertmanager-preconfig.sh를 실행하여 alert-manager가 사용할 pv,pvc를 생성한다
+   - prometheus-alertmanager-install.sh파일과 values.yaml파일을 마스터 노드로 옮긴다
+   - helm upgrade prometheus prometheus-community/prometheus -f ./values.yaml로 프로메테우스를 업그래이드 한다
+   - (Error: UPGRADE FAILED: template: prometheus/templates/_helpers.tpl:80:47: executing "prometheus.alertmanager.fullname" at        
+     <.Subcharts.alertmanager>: nil pointer evaluating interface {}.alertmanager)
+   - 업그레이드 시도 시 해당 에러가 나와 helm 버전 변경 혹은 첫 인스톨 시 alertmanager 같이 설치
+
