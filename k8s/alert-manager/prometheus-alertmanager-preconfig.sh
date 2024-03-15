@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-nfsdir=/nfs_shared/prometheus/alertmanager
 
 echo "[Step 1/4] Task [Check helm status]"
 if [ ! -e "/usr/local/bin/helm" ]; then
@@ -16,9 +15,17 @@ if [ "$namespace" == "" ]; then
 fi
 echo "[Step 2/4] ok"
 
+nfsdir=/nfs/prometheus/alertmanager
 echo "[Step 3/4] Task [Create NFS directory for alertmanager]"
 if [ ! -e "$nfsdir" ]; then
-    ~/_Book_k8sInfra/ch6/6.5.1/nfs-exporter.sh prometheus/alertmanager
+    if [[ ! -d $nfsdir ]]; then
+        mkdir -p $nfsdir
+        echo "$nfsdir 192.168.1.0/24(rw,sync,no_root_squash)" >> /etc/exports
+        if [[ $(systemctl is-enabled nfs) -eq "disabled" ]]; then
+            systemctl enable nfs
+        fi
+        systemctl restart nfs
+    fi
     chown 1000:1000 $nfsdir
     echo "[Step 3/4] Successfully completed"
 else
@@ -29,7 +36,7 @@ fi
 echo "[Step 4/4] Task [Create PV,PVC for alertmanager]"
 pvc=$(kubectl get pvc prometheus-alertmanager -o jsonpath={.matadata.name} 2> /dev/null)
 if [ "$pvc" == "" ]; then
-    kubectl apply -f ~/_Book_k8sInfra/ch6/6.5.1/prometheus-alertmanager-volume.yaml
+    kubectl apply -f ./prometheus-alertmanager-volume.yaml
     echo "[Step 4/4] Successfully completed"
 else
     echo "[Step 4/4] failed: prometheus-alertmanager pv,pvc already exist" 
