@@ -329,4 +329,11 @@
    - PromQL: histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket[5m])) by (le))
    - 시각화: Stat
    - Standard options 탭의 unit을 Time -> seconds(s)로 선택한다
+   - 새 패널 생성
+   - 제목: Pod 상태
+   - PromQL: sum(kube_pod_status_phase{pod=~"$Pod",namespace=~"$Namespace"}) by (phase)
+   - Legend: {{phase}}
+   - 시각화: Stat
+   - Stat Styles Orientation = Horizontal
+   - $Namespace Namespace Metrics row 밑으로 지금까지 생성한 패널을 옮긴다
 17. 서버 모니터링 경고 Slack 알림
