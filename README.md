@@ -30,7 +30,7 @@
    - 헬름을 이용해 쿠버네티스에 원하는 애플리케이션을 간단하게 설치할 수 있다
    - 컨테이너 배포 뿐 아니라 애플리케이션을 배포하기 위해 필요한 쿠버네티스 리소스를 모두 패키지 형태로 배포하는 역할
    - 마스터 노드로 helm-install.sh 이동
-   - helm-install.sh 를 export DESIRED_VERSION=v3.2.1; 헬름 쉘스크립트 ex) ./helm-install.sh 명령어와 같이 실행하여 버전을 정하면서 헬름 설치
+   - helm-install.sh 를 export DESIRED_VERSION=v3.7.0; 헬름 쉘스크립트 ex) ./helm-install.sh 명령어와 같이 실행하여 버전을 정하면서 헬름 설치
 
 9. MetalLB 설치
    - 마스터 노드에서 작업 진행
@@ -342,3 +342,7 @@
    - 새 채널 생성을 눌러 알림을 받을 채널을 생성한다
    - 채널을 등록하고 웹훅을 등록한다
    - 웹훅 URL을 복사해둔다
+   - alert-manager.yaml 파일의 Slack-URL 값을 발급받은 URL값으로 바꾼다
+   - alert-manager.yaml를 마스터 노드로 옮기고 kubectl apply -f alert-notifier.yaml을 실행하여 콘피그맵을 배포한다
+   - prometheus-alertmanager-preconfig.sh파일과 prometheus-alertmanager-volume.yaml파일을 마스터 노드로 옮긴다
+   - prometheus-alertmanager-preconfig.sh를 실행하여 alert-manager가 사용할 pv,pvc를 생성한다
