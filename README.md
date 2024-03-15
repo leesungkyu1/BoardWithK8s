@@ -218,7 +218,7 @@
    - existingClaim 항목의 값을 방금 만든 pvc값으로 바꾼다
    - type 항목의 값을 metallb로부터 외부 IP를 할당받아 웹 ui로 확인할 수 있도록 LoadBalancer로 설정한다
    - extraFlags 항목중에 storage.tsdb.no-lockfile 항목의 주석을 해제한다 (해당 설정이 없으면 설정 변경작업 실패)
-   - securityContext 항목의 runAsGroup과 runAsUser를 1000번으로 바꾼다
+   - securityContext 항목의 runAsGroup,runAsUser,fsgroup 1000번으로 바꾼다 (nfs서버 유저가 1000번이기 때문)
    - tolerations의 []를 지우고
    - - key: "node-role.kubernetes.io/control-plane"
       operator: "Exists"
@@ -230,7 +230,115 @@
    - grafana폴더에 grafana-preconfig.sh 파일과 grafana-volume.yaml 파일을 마스터 노드로 옮긴다
    - grafana-preconfig.sh를 실행하여 프로메테우스의 데이터를 저장할 볼륨을 설정하고 권한을 준다
    - grafana폴더에 grafana-install.sh 파일을 마스터 노드로 옮긴다
+   ---------------------------------- kubernetes 버전 변경으로 인해 학습용 helm template 미지원 -------------------
    - ./grafana-install.sh를 실행하여 헬름으로 그라파나를 설치한다
+   ---------------------------------- kubernetes 버전 변경으로 인해 학습용 helm template 미지원 -------------------
+   - helm repo add grafana https://grafana.github.io/helm-charts를 입력하여 저장소를 추가한다
+   - helm repo update를 입력하여 저장소를 최신화 시킨다
+   - git clone https://github.com/grafana/helm-charts.git을 입력하여 그라파나 헬름 차트를 다운받는다
+   - helm-chart -> charts -> grafana 경로에 있는 values.yaml을 수정한다
+   - persistence에서 enabled를 true로 설정한다
+   - accessModes와 size 항목은 주석처리한다
+   - existingClaim항목은 주석을 해제하고 방금 만든 pvc 명을 기입한다
+   - service 하위의 type 값 ClusterIP를 지우고 LoadBalancer를 넣는다
+   - securityContext 하위의 runAsUser, runAsGroup, fsGroup를 1000번으로 바꾼다
+   - adminPassword부분의 주석을 해제하고 비밀번호를 admin으로 설정한다
+   - helm install grafana grafana/grafana -f values.yaml을 입력하여 그라파나를 설치한다
+   - kubectl get service를 입력하여 노출된 IP를 확인하고 접속하여 정상 배포되었는지 확인한다
+   
+16. 그라파나, 프로메테우스 연동 (노드 모니터링)
+   - 그라파나에 접속하여 로그인한다
+   - 왼쪽 menu에 Connections로 들어가 Data sources 탭을 클릭한다
+   - Prometheus를 클릭한다
+   - name에 Prometheus를 입력하고 Default 항목을 체크한다
+   - Connection 항목에 http://prometheus-server.default.svc.cluster.local (CoreDNS 기능)을 입력하고 Save & Test 버튼을 누른다
+   - 왼쪽 메뉴에서 Dashboard를 클릭한다
+   - Create Dashboard 버튼을 누르고 Add visualization버튼을 누른다
+   - 데이터 소스로 아까 만든 프로메테우스를 넣는다
+   - 다음 나오는 창에서 하단에 code 버튼을 누르고 메트릭 브라우저 옆에 입력창에 해당 내용을 입력한다
+   - 1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (node)를 입력한다
+   - 오른쪽 패널에서 Title에 노드 CPU 사용률을 입력한다
+   - 오른쪽 상단의 메트릭 수집 설정 구간을 Last 6 hours에서 Last 1 hour로 변경한다
+   - 오른쪽 패널 탭을 아래로 스크롤 하여 Standard options 탭의 unit을 Misc -> percent(0.0-1.0)으로 선택한다
+   - 오른쪽 최상단의 Save 버튼을 눌러 저장한다
+   - 오른쪽 상단의 Add -> visualization 버튼을 눌러 새 패널을 생성한다
+   - 제목을 노드 메모리 사용량으로 설정한다
+   - PromQL을 node_memory_Active_bytes를 입력한다
+   - 입력후 하단 options를 열어 Legend의 Auto를 Custom으로 바꾸고 {{}} 안에 node를 넣는다
+   - Standard options 탭의 unit을 Data -> bytes(SI)로 선택한다
+   - Save 눌러 저장한다
+   - 새 패널을 생성한다
+   - 제목: 노드 네트워크 평균 송신/수신 트래픽
+   - PromQL: avg(rate(node_network_transmit_bytes_total[5m])) by (node)
+   - Legend: {{node}}-transmit
+   - 하단의 Add query 버튼을 누른다
+   - PromQL: avg(rate(node_network_receive_bytes_total[5m])) by (node) * - 1
+   - Legend: {{node}}-receive
+   - Standard options 탭의 unit을 Data -> bytes(SI)로 선택한다
+   - Save 버튼을 눌러 저장한다
+   - 새 패널 생성
+   - 제목: 노드 상태
+   - PromQL: up{job="kubernetes-nodes"}
+   - Legend: {{instance}}
+   - 오른쪽 상단의 Time series 버튼을 눌러 Stat으로 바꾼다
+   - Stat styles탭에서 Orientation을 Horizontal로 바꾼다
+   - Graph mode를 None으로 바꾼다
+   - Value mappings탭에서 Add value mapping 버튼을 누른다
+   - Condition에 1을 입력하고 Display text에 Good을 입력한다
+   - 하단의 Add value mapping버튼을 눌러 0 = Bad를 입력한다
+   - 오른쪽에 color를 눌러 Bad의 색상을 빨간색으로 바꾼다
+   - Save를 눌러 저장한다
+   - add 버튼을 눌러 row를 선택한다
+   - row title에서 톱니바퀴를 눌러 제목을 Cluster Metrics로 변경한다
+   - 패널들을 드래그해 Cluster Metrics밑에 속하도록 정렬시킨다
+   - add 버튼 옆에 save 버튼을 눌러 Dash Board를 저장한다
      
-16. 그라파나, 프로메테우스 연동
+17. 그라파나, 프로메테우스 연동 (파드 모니터링)
+   - 오른쪽 상단의 톱니바퀴를 누른다
+   - Variables 버튼을 누르고 Add variable 버튼을 누른다
+   - Name 항목에 Namespace를 입력한다
+   - Label 항목에 Namespace를 입력한다
+   - Query 항목에 Query type을 Label Values로 선택하고 Label은 namespace로 설정한다
+   - Include All option을 체크한다
+   - Custom all value에 .+를 입력한다
+   - 하단 Preview of values 항목에 namespace들이 출력되는지 확인한다
+   - Apply 버튼을 눌러 메인화면으로 나온다
+   - 다시 변수 추가 버튼을 누른다
+   - Name: Pod
+   - Label: Pod
+   - Query Type: Label Value
+   - Label: Pod
+   - Metric: 방금 설정한 Namespace
+   - Include All option: true
+   - Custom all value: .+
+   - Save dashboard 버튼을 눌러 저장한다
+   - Add 버튼을 눌러 row를 생성한다
+   - row 명을 $Namespace Namespace Metrics로 입력한다
+   - 새 패널 생성
+   - 제목: $Pod Pod CPU 사용률
+   - PromQL: sum(rate(container_cpu_usage_seconds_total{namespace=~"$Namespace",pod=~"$Pod",container!=""}[5m])) by (pod)
+   - Legend: {{pod}}
+   - Standard options 탭의 unit을 Misc -> percent(0.0-1.0)로 선택한다
+   - 새 패널 생성
+   - 제목: $Pod Pod 메모리 사용량
+   - PromQL: sum(container_memory_usage_bytes{namespace=~"$Namespace",pod=~"$Pod",container!=""}) by (pod)
+   - Legend: {{pod}}
+   - Standard options 탭의 unit을 Data -> bytes(SI)로 선택한다
+   - 새 패널 생성
+   - 제목: API 서버 응답 시간(5분/SAL 99%)
+   - PromQL: histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket[5m])) by (le))
+   - 시각화: Stat
+   - Standard options 탭의 unit을 Time -> seconds(s)로 선택한다
+   - 새 패널 생성
+   - 제목: Pod 상태
+   - PromQL: sum(kube_pod_status_phase{pod=~"$Pod",namespace=~"$Namespace"}) by (phase)
+   - Legend: {{phase}}
+   - 시각화: Stat
+   - Stat Styles Orientation = Horizontal
+   - $Namespace Namespace Metrics row 밑으로 지금까지 생성한 패널을 옮긴다
 17. 서버 모니터링 경고 Slack 알림
+   - 슬랙을 연다
+   - webhook을 검색해 Incomming WebHooks를 추가한다
+   - 새 채널 생성을 눌러 알림을 받을 채널을 생성한다
+   - 채널을 등록하고 웹훅을 등록한다
+   - 웹훅 URL을 복사해둔다
