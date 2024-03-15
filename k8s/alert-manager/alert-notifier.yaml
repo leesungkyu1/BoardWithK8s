@@ -16,11 +16,11 @@ metadata:
 data:
   alertmanager.yml: |
     global:
-      slack_api_url: Slack-URL = 슬랙에서 webhook으로 발급받은 url입력
+      slack_api_url: Slack-URL = https://hooks.slack.com/services/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
     recivers:
     - name: slack-notifier
       slack_configs:
-      - channel: #모니터링
+      - channel: #alert-notice
         send_resolved: true
         title: '[{{.Status | toUpper}}] {{ .CommonLabels.alertname }}'
         text: >-

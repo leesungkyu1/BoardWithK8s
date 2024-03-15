@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-helm upgrade prometheus edu/prometheus \
+helm upgrade prometheus prometheus-community/prometheus \
 --set pushgateway.enabled=false \
---set nodeExporter.tolerations[0].key=node-role.kubernetes.io/master \
+--set nodeExporter.tolerations[0].key=node-role.kubernetes.io/control-plane \
 --set nodeExporter.tolerations[0].effect=NoSchedule \
 --set nodeExporter.tolerations[0].operator=Exists \
 --set alertmanager.persistentVolume.existingClaim="prometheus-alertmanager" \
